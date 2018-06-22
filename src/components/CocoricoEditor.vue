@@ -16,6 +16,13 @@
         {{ font }}
       </option>
     </select>
+    <span>Animal : </span>
+    <select v-model="logo">
+      <option v-for="logo in logos" v-bind:value="logo">
+        {{ logo }}
+      </option>
+    </select>
+
    </div>
   </div>
 </template>
@@ -36,13 +43,15 @@ export default {
       topText: "Taupe texte izi year !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
+      logo: "logo",
       fonts: [
         "Times New Roman",
         "Pacifico",
         "VT323",
         "Quicksand",
         "Inconsolata"
-      ]
+      ],
+      logos: ["logo", "lapin","chien"]
     };
   },
 
@@ -71,9 +80,10 @@ export default {
 
     let _self = this;
 
-    fabric.Image.fromURL("/animals/logo.png", function(oImg) {
+    fabric.Image.fromURL("/animals/" + this.logo + ".png", function(oImg) {
       oImg.set("left", 125).set("top", 100);
       _self.$canvas.add(oImg);
+      _self.$coverImg = oImg;
     });
 
     //title text
@@ -170,6 +180,16 @@ export default {
         this.$canvas.getActiveObject().set("fontFamily", this.fontFamily);
         this.$canvas.requestRenderAll();
       }
+    },
+
+    logo: function() {
+      console.log("fontFamily changed to " + this.logo, this);
+      let _self = this;
+      this.$coverImg.setSrc("/animals/" + this.logo + ".png", function(oImg) {
+        oImg.set("left", 125).set("top", 100);
+        _self.$canvas.add(oImg);
+        _self.$coverImg = oImg;
+      });
     }
   }
 };
