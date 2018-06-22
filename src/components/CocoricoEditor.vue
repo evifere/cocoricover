@@ -80,7 +80,12 @@ export default {
 
     this.$canvas.add(titleTextbox).setActiveObject(titleTextbox);
 
+    //corocico copyright
+    let  cocoricoSymbol = new fabric.Text('?', { left: 70, top: 670,fontSize:15,fontWeight:'bold'});
+    this.$canvas.add(cocoricoSymbol).add(cocoricoSymbol);
 
+    let cocoricopiright = new fabric.Text('CocoricoRLY', { left: 10, top: 680,fontSize:10,fontWeight:'bold'});
+    this.$canvas.add(cocoricopiright).add(cocoricopiright);
 
     this.saveToPng();
   },
