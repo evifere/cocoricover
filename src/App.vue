@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CocoricoEditor from './components/CocoricoEditor.vue'
 
 export default {
   name: 'app',

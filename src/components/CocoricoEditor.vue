@@ -1,57 +1,99 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div class="page">
+  	<div>
+   		<canvas id='background' width="500" height="500"></canvas>
+   		<img  width="500" height="500" ref="preview" src="" />
+   	</div>
+   <div>
+   		<span>fontFamily : </span>
+		<select v-model="fontFamily">
+		  <option v-for="font in fonts" v-bind:value="font">
+		    {{ font }}
+		  </option>
+		</select>
+		<button   v-on:click="saveToPng" >Preview as png</button>
+   </div>
   </div>
 </template>
 
-<script>
+<script scoped>
+import { fabric } from "fabric";
+let FontFaceObserver = require("fontfaceobserver");
+
 export default {
-  name: 'HelloWorld',
+  name: 'CocoricoEditor',
   props: {
     msg: String
-  }
-}
+  },
+
+	data() {
+		return {
+			fontFamily: "",
+			fonts: ["Pacifico", "VT323", "Quicksand", "Inconsolata"]
+		};
+	},
+
+	mounted() {
+		/*eslint no-console: ["error", { allow: ["warn", "error"] }] */
+		this.$canvas = new fabric.Canvas("background");
+
+		let textbox = new fabric.Textbox("Lorum ipsum dolor sit amet", {
+			left: 50,
+			top: 50,
+			width: 150,
+			fontSize: 20
+		});
+		this.$canvas.add(textbox).setActiveObject(textbox);
+		this.saveToPng();
+	},
+
+	methods: {
+		loadAndUse(font) {
+			let myfont = new FontFaceObserver(font);
+			let _self = this;
+			myfont
+				.load()
+				.then(function() {
+					// when font is loaded, use it.
+					_self.$canvas.getActiveObject().set("fontFamily", font);
+					_self.$canvas.requestRenderAll();
+				})
+				.catch(function(e) {
+					console.log(e);
+					alert("font loading failed " + font);
+				});
+		},
+
+		saveToPng() {
+			this.$refs.preview.src = this.$canvas.toDataURL("image/png");
+		}
+	},
+	watch: {
+		fontFamily: function() {
+			/*eslint no-console: ["error", { allow: ["warn", "error"] }] */
+			console.log("fontFamily changed to " + this.fontFamily, this);
+
+			if (this.fontFamily !== "Times New Roman") {
+				this.loadAndUse(this.fontFamily);
+			} else {
+				this.$canvas
+					.getActiveObject()
+					.set("fontFamily", this.fontFamily);
+				this.$canvas.requestRenderAll();
+			}
+		}
+	}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+div.page {
+	display: inline-flex;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+canvas,
+img {
+	border: 1px solid blue;
 }
 </style>
