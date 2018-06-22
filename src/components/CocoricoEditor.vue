@@ -43,7 +43,8 @@ export default {
     /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
     this.$canvas = new fabric.Canvas("background",{
       width:500,
-      height:700
+      height:700,
+      backgroundColor:'white'
     });
 
     //heading line
