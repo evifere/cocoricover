@@ -34,6 +34,7 @@ export default {
       fontFamily: "",
       topText: "Taupe texte izi year !",
       titleText:"Le Ch'titre qui l'es bien là",
+      authorsText:"Danny Boom & @cocoricorly",
       fonts: ["Pacifico", "VT323", "Quicksand", "Inconsolata"]
     };
   },
@@ -61,7 +62,7 @@ export default {
 
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
 
-    //top text
+    //title text
     let titleTextbox = new fabric.Textbox(this.titleText, {
       left: 10,
       top: 410,
@@ -79,6 +80,20 @@ export default {
 
 
     this.$canvas.add(titleTextbox).setActiveObject(titleTextbox);
+
+    //title text
+    let authorsTextbox = new fabric.Textbox(this.authorsText, {
+      left: 200,
+      top: 670,
+      width: 300,
+      borderColor :'green',
+      selectionBackgroundColor:'yellow',
+      fontSize: 20,
+      fontStyle: "italic"
+    });
+
+
+    this.$canvas.add(authorsTextbox).setActiveObject(authorsTextbox);
 
     //corocico copyright
     let  cocoricoSymbol = new fabric.Text('?', { left: 70, top: 670,fontSize:15,fontWeight:'bold'});
