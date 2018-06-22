@@ -1,17 +1,21 @@
 <template>
   <div class="page">
-    <div class="board">
+
+    <div class="col">    
+      <button   v-on:click="saveToPng" >Preview as png</button>
+    </div>
+    <div class="board col">
       <canvas id='background'></canvas>
       <img  width="500" height="700" ref="preview" src="" />
     </div>
-   <div>
+
+   <div class="col">
     <span>fontFamily : </span>
     <select v-model="fontFamily">
       <option v-for="font in fonts" v-bind:value="font">
         {{ font }}
       </option>
     </select>
-    <button   v-on:click="saveToPng" >Preview as png</button>
    </div>
   </div>
 </template>
@@ -32,7 +36,13 @@ export default {
       topText: "Taupe texte izi year !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
-      fonts: ["Times New Roman","Pacifico", "VT323", "Quicksand", "Inconsolata"]
+      fonts: [
+        "Times New Roman",
+        "Pacifico",
+        "VT323",
+        "Quicksand",
+        "Inconsolata"
+      ]
     };
   },
 
@@ -186,5 +196,12 @@ div.board img {
 
 .hidden {
   display: none;
+}
+
+.page {
+  display: flex;
+}
+.col {
+  flex: 1;
 }
 </style>
