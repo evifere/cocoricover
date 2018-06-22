@@ -71,7 +71,7 @@ export default {
 
     let _self = this;
 
-    fabric.Image.fromURL("/logo.png", function(oImg) {
+    fabric.Image.fromURL("/animals/logo.png", function(oImg) {
       oImg.set("left", 125).set("top", 100);
       _self.$canvas.add(oImg);
     });
