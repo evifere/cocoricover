@@ -51,7 +51,7 @@ export default {
         "Quicksand",
         "Inconsolata"
       ],
-      logos: ["logo", "lapin","chien"]
+      logos: ["logo", "lapin","chien","oies","lion","monstre"]
     };
   },
 
