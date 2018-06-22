@@ -1,8 +1,8 @@
 <template>
   <div class="page">
   	<div>
-   		<canvas id='background' width="500" height="500"></canvas>
-   		<img  width="500" height="500" ref="preview" src="" />
+   		<canvas id='background' width="500" height="700"></canvas>
+   		<img  width="500" height="700" ref="preview" src="" />
    	</div>
    <div>
    		<span>fontFamily : </span>
