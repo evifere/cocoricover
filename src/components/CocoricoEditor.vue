@@ -33,18 +33,18 @@ export default {
     return {
       fontFamily: "",
       topText: "Taupe texte izi year !",
-      titleText:"Le Ch'titre qui l'es bien là",
-      authorsText:"Danny Boom & @cocoricorly",
+      titleText: "Le Ch'titre qui l'es bien là",
+      authorsText: "Danny Boom & @cocoricorly",
       fonts: ["Pacifico", "VT323", "Quicksand", "Inconsolata"]
     };
   },
 
   mounted() {
     /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
-    this.$canvas = new fabric.Canvas("background",{
-      width:500,
-      height:700,
-      backgroundColor:'white'
+    this.$canvas = new fabric.Canvas("background", {
+      width: 500,
+      height: 700,
+      backgroundColor: "white"
     });
 
     //heading line
@@ -57,11 +57,17 @@ export default {
       width: 400,
       fontSize: 20,
       fontStyle: "italic",
-      borderColor :'green',
+      borderColor: "green"
     });
 
-
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
+
+    let _self = this;
+
+    fabric.Image.fromURL("/logo.png", function(oImg) {
+      oImg.set("left", 125).set("top", 100);
+      _self.$canvas.add(oImg);
+    });
 
     //title text
     let titleTextbox = new fabric.Textbox(this.titleText, {
@@ -69,16 +75,15 @@ export default {
       top: 410,
       width: 490,
       height: 2000,
-      textBackgroundColor :'blue',
-      borderColor :'green',
-      selectionBackgroundColor:'yellow',
-      backgroundColor:'blue',
-      stroke:'blue',
-      fill:"white",
+      textBackgroundColor: "blue",
+      borderColor: "green",
+      selectionBackgroundColor: "yellow",
+      backgroundColor: "blue",
+      stroke: "blue",
+      fill: "white",
       fontSize: 60,
       fontStyle: "normal"
     });
-
 
     this.$canvas.add(titleTextbox).setActiveObject(titleTextbox);
 
@@ -87,20 +92,29 @@ export default {
       left: 200,
       top: 670,
       width: 300,
-      borderColor :'green',
-      selectionBackgroundColor:'yellow',
+      borderColor: "green",
+      selectionBackgroundColor: "yellow",
       fontSize: 20,
       fontStyle: "italic"
     });
 
-
     this.$canvas.add(authorsTextbox).setActiveObject(authorsTextbox);
 
     //corocico copyright
-    let  cocoricoSymbol = new fabric.Text('?', { left: 70, top: 670,fontSize:15,fontWeight:'bold'});
+    let cocoricoSymbol = new fabric.Text("?", {
+      left: 70,
+      top: 670,
+      fontSize: 15,
+      fontWeight: "bold"
+    });
     this.$canvas.add(cocoricoSymbol).add(cocoricoSymbol);
 
-    let cocoricopiright = new fabric.Text('CocoricoRLY', { left: 10, top: 680,fontSize:10,fontWeight:'bold'});
+    let cocoricopiright = new fabric.Text("CocoricoRLY", {
+      left: 10,
+      top: 680,
+      fontSize: 10,
+      fontWeight: "bold"
+    });
     this.$canvas.add(cocoricopiright).add(cocoricopiright);
 
     this.saveToPng();
@@ -133,9 +147,8 @@ export default {
         stroke: color,
         strokeWidth: 5,
         selectable: false,
-        originX:'left',
-        originY:'top',
-        
+        originX: "left",
+        originY: "top"
       });
     }
   },
@@ -164,5 +177,9 @@ div.page {
 canvas,
 img {
   border: 1px solid blue;
+}
+
+.hidden {
+  display: none;
 }
 </style>
