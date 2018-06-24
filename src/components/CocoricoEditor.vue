@@ -16,10 +16,16 @@
         {{ font }}
       </option>
     </select>
-    <span>Animal : </span>
+    <span>Logos : </span>
     <select v-model="logo">
       <option v-for="logo in logos" v-bind:value="logo">
         {{ logo }}
+      </option>
+    </select>
+    <span>Color : </span>
+    <select v-model="mainColor">
+      <option v-for="mainColor in mainColors" v-bind:value="mainColor">
+        {{ mainColor }}
       </option>
     </select>
 
@@ -44,7 +50,7 @@ export default {
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
-      mainColor:"blue",
+      mainColor: "darkmagenta",
       fonts: [
         "Times New Roman",
         "Pacifico",
@@ -52,7 +58,8 @@ export default {
         "Quicksand",
         "Inconsolata"
       ],
-      logos: ["logo", "lapin","chien","oies","lion","monstre"]
+      logos: ["logo", "lapin", "chien", "oies", "lion", "monstre"],
+      mainColors: ["darkgrey", "darkmagenta", "cyan", "cornflowerblue"]
     };
   },
 
@@ -65,7 +72,8 @@ export default {
     });
 
     //heading line
-    this.$canvas.add(this.makeLine([5, 0, 495, 0], this.mainColor));
+    this.$headline = this.makeLine([5, 0, 495, 0], this.mainColor);
+    this.$canvas.add(this.$headline);
 
     //top text
     let topTextbox = new fabric.Textbox(this.topText, {
@@ -191,6 +199,12 @@ export default {
         _self.$canvas.add(oImg);
         _self.$coverImg = oImg;
       });
+    },
+
+    mainColor: function() {
+      console.log("mainColor changed to " + this.mainColor, this);
+      this.$headline.set({ fill: this.mainColor, stroke: this.mainColor });
+      this.$canvas.requestRenderAll();
     }
   }
 };
