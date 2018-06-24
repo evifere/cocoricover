@@ -59,7 +59,7 @@ export default {
         "Quicksand",
         "Inconsolata"
       ],
-      logos: ["logo", "lapin", "chien", "oies", "lion", "monstre"],
+      logos: require('./logos.json'),
       mainColors: require('./cocoricolors.json')
     };
   },
