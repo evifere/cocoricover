@@ -96,7 +96,7 @@ export default {
     });
 
     //title text
-    let titleTextbox = new fabric.Textbox(this.titleText, {
+    this.$titleTextbox = new fabric.Textbox(this.titleText, {
       left: 10,
       top: 410,
       width: 490,
@@ -111,7 +111,7 @@ export default {
       fontStyle: "normal"
     });
 
-    this.$canvas.add(titleTextbox).setActiveObject(titleTextbox);
+    this.$canvas.add(this.$titleTextbox);
 
     //title text
     let authorsTextbox = new fabric.Textbox(this.authorsText, {
@@ -124,7 +124,7 @@ export default {
       fontStyle: "italic"
     });
 
-    this.$canvas.add(authorsTextbox).setActiveObject(authorsTextbox);
+    this.$canvas.add(authorsTextbox);
 
     //corocico copyright
     let cocoricoSymbol = new fabric.Text("?", {
@@ -204,6 +204,13 @@ export default {
     mainColor: function() {
       console.log("mainColor changed to " + this.mainColor, this);
       this.$headline.set({ fill: this.mainColor, stroke: this.mainColor });
+
+      this.$titleTextbox.set({
+        textBackgroundColor: this.mainColor,
+        backgroundColor: this.mainColor,
+        stroke: this.mainColor
+      });
+
       this.$canvas.requestRenderAll();
     }
   }
