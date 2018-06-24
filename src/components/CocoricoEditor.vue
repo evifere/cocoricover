@@ -1,35 +1,40 @@
 <template>
   <div class="page">
 
-    <div class="col">    
-      <button   v-on:click="saveToPng" >Preview as png</button>
+    <div class="col">
+    <div class="row">
+      <span class="col">fontFamily : </span>
+      <select class="col" v-model="fontFamily">
+        <option v-for="font in fonts" v-bind:value="font">
+          {{ font }}
+        </option>
+      </select>
+    </div>
+    <div class="row">
+      <span class="col">Logos : </span>
+      <select v-model="logo" class="col">
+        <option v-for="logo in logos" v-bind:value="logo">
+          {{ logo }}
+        </option>
+      </select>
+    </div>
+    <div class="row">
+      <span class="col">Color : </span>
+      <select class="col" v-model="mainColor">
+        <option v-for="mainColor in mainColors" v-bind:value="mainColor">
+          {{ mainColor }}
+        </option>
+      </select>
+    </div>
+    <div class="row centered">
+        <button   v-on:click="saveToPng" >Preview as png</button>
     </div>
     <div class="board col">
       <canvas id='background'></canvas>
       <img  width="500" height="700" ref="preview" src="" />
     </div>
-
-   <div class="col">
-    <span>fontFamily : </span>
-    <select v-model="fontFamily">
-      <option v-for="font in fonts" v-bind:value="font">
-        {{ font }}
-      </option>
-    </select>
-    <span>Logos : </span>
-    <select v-model="logo">
-      <option v-for="logo in logos" v-bind:value="logo">
-        {{ logo }}
-      </option>
-    </select>
-    <span>Color : </span>
-    <select v-model="mainColor">
-      <option v-for="mainColor in mainColors" v-bind:value="mainColor">
-        {{ mainColor }}
-      </option>
-    </select>
-
    </div>
+
   </div>
 </template>
 
@@ -59,8 +64,8 @@ export default {
         "Quicksand",
         "Inconsolata"
       ],
-      logos: require('./logos.json'),
-      mainColors: require('./cocoricolors.json')
+      logos: require("./logos.json"),
+      mainColors: require("./cocoricolors.json")
     };
   },
 
@@ -246,5 +251,30 @@ div.board img {
 }
 .col {
   flex: 1;
+}
+.row {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  padding:0.5em;
+}
+
+.row.centered{
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
 }
 </style>
