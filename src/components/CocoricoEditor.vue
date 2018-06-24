@@ -44,6 +44,7 @@ export default {
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
+      mainColor:"blue",
       fonts: [
         "Times New Roman",
         "Pacifico",
@@ -64,7 +65,7 @@ export default {
     });
 
     //heading line
-    this.$canvas.add(this.makeLine([5, 0, 495, 0], "blue"));
+    this.$canvas.add(this.makeLine([5, 0, 495, 0], this.mainColor));
 
     //top text
     let topTextbox = new fabric.Textbox(this.topText, {
@@ -92,11 +93,11 @@ export default {
       top: 410,
       width: 490,
       height: 2000,
-      textBackgroundColor: "blue",
+      textBackgroundColor: this.mainColor,
       borderColor: "green",
       selectionBackgroundColor: "yellow",
-      backgroundColor: "blue",
-      stroke: "blue",
+      backgroundColor: this.mainColor,
+      stroke: this.mainColor,
       fill: "white",
       fontSize: 60,
       fontStyle: "normal"
