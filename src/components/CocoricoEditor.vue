@@ -35,6 +35,7 @@
 
 <script scoped>
 import { fabric } from "fabric";
+
 let FontFaceObserver = require("fontfaceobserver");
 
 export default {
@@ -59,7 +60,7 @@ export default {
         "Inconsolata"
       ],
       logos: ["logo", "lapin", "chien", "oies", "lion", "monstre"],
-      mainColors: ["darkgrey", "darkmagenta", "cyan", "cornflowerblue"]
+      mainColors: require('./cocoricolors.json')
     };
   },
 
