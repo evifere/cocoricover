@@ -41,7 +41,9 @@
     <div class="row centered">
         <button   v-on:click="saveToPng" >Preview as png</button>
     </div>
-
+    <div class="row centered">
+      <a ref="downloadPng" href="#"  v-on:click="downloadPng" download="cocoricover.png">Download PNG</a>
+    </div>
     <div class="board col">
       <canvas id='background'></canvas>
       <img  width="500" height="700" ref="preview" src="" />
