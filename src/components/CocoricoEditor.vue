@@ -10,24 +10,17 @@
         </option>
       </select>
     </div>
-    <div class="row">
-      <span class="col">Logos : </span>
-      <select v-model="logo" class="col">
-        <option v-for="logo in logos" v-bind:value="logo">
-          {{ logo }}
-        </option>
-      </select>
+    <div>
+        <label for="text-font-size">Font size:{{fontSize}}</label>
+        <input type="range" value="" min="1" max="120" step="1" id="text-font-size" v-model="fontSize">
     </div>
-    <div class="row">
-      <span class="col">Color : </span>
-      <select class="col" v-model="mainColor">
-        <option v-for="mainColor in mainColors" v-bind:value="mainColor">
-          {{ mainColor }}
-        </option>
-      </select>
+    <div>
+        <label for="text-line-height">Line height:{{lineHeight}}</label>
+        <input type="range" value="" min="0" max="10" step="0.1" id="text-line-height" v-model="lineHeight">
     </div>
-    <div class="row centered">
-      <a ref="downloadPng" href="#"  v-on:click="downloadPng" download="cocoricover.png">Download PNG</a>
+    <div>
+      <label for="text-align" >Text align:</label>
+       <select id="text-align" class="btn-object-action" v-model="textAlign"><option>Left</option><option>Center</option><option>Right</option><option>Justify</option></select>
     </div>
     <div class="row centered">
         <button   v-on:click="saveToPng" >Preview as png</button>
@@ -56,6 +49,9 @@ export default {
   data() {
     return {
       fontFamily: "Times New Roman",
+      fontSize: 20,
+      lineHeight: 1.16,
+      textAlign: "Left",
       topText: "Taupe texte izi year !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
@@ -69,7 +65,9 @@ export default {
         "Inconsolata"
       ],
       logos: require("./logos.json"),
-      mainColors: require("./cocoricolors.json")
+      mainColors: require("./cocoricolors.json"),
+      fonts: require("./fonts.json"),
+      gofonts: require("./gofonts.json")
     };
   },
 
@@ -157,6 +155,24 @@ export default {
   },
 
   methods: {
+    setActiveProp(name, value) {
+      var object = this.$canvas.getActiveObject();
+      if (!object) {
+        return;
+      }
+
+      object.set(name, value).setCoords();
+      this.update();
+      this.$canvas.renderAll();
+    },
+
+    update() {
+      if (!this.$canvas) {
+        return;
+      }
+      this.$canvas.fire("canvas:modified");
+      this.$canvas.requestRenderAll();
+    },
     loadAndUse(font) {
       let myfont = new FontFaceObserver(font);
       let _self = this;
@@ -164,8 +180,7 @@ export default {
         .load()
         .then(function() {
           // when font is loaded, use it.
-          _self.$canvas.getActiveObject().set("fontFamily", font);
-          _self.$canvas.requestRenderAll();
+          _self.setActiveProp("fontFamily", font);
         })
         .catch(function(e) {
           console.log(e);
@@ -193,20 +208,21 @@ export default {
     }
   },
   watch: {
-    fontFamily: function() {
+    fontFamily() {
       /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
-      console.log("fontFamily changed to " + this.fontFamily, this);
 
-      if (this.fontFamily !== "Times New Roman") {
+      if (this.gofonts.includes(this.fontFamily)) {
+        console.log("loadAndUse fontFamily changed to " + this.fontFamily);
+
         this.loadAndUse(this.fontFamily);
       } else {
-        this.$canvas.getActiveObject().set("fontFamily", this.fontFamily);
-        this.$canvas.requestRenderAll();
+        console.log("fontFamily changed to " + this.fontFamily.toLowerCase());
+
+        this.setActiveProp("fontFamily", this.fontFamily.toLowerCase());
       }
     },
 
-    logo: function() {
-      console.log("fontFamily changed to " + this.logo, this);
+    logo() {
       let _self = this;
       this.$coverImg.setSrc("/animals/" + this.logo + ".png", function(oImg) {
         oImg.set("left", 125).set("top", 100);
@@ -216,7 +232,6 @@ export default {
     },
 
     mainColor: function() {
-      console.log("mainColor changed to " + this.mainColor, this);
       this.$headline.set({ fill: this.mainColor, stroke: this.mainColor });
 
       this.$titleTextbox.set({
@@ -226,6 +241,15 @@ export default {
       });
 
       this.$canvas.requestRenderAll();
+    },
+    fontSize() {
+      this.setActiveProp("fontSize", this.fontSize.toLowerCase());
+    },
+    lineHeight() {
+      this.setActiveProp("lineHeight", this.lineHeight.toLowerCase());
+    },
+    textAlign() {
+      this.setActiveProp("textAlign", this.textAlign.toLowerCase());
     }
   }
 };
@@ -276,13 +300,13 @@ div.board img {
   flex-wrap: wrap;
   margin-right: -0.5rem;
   margin-left: -0.5rem;
-  padding:0.5em;
+  padding: 0.5em;
 }
 
-.row.centered{
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
+.row.centered {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
 }
 </style>
