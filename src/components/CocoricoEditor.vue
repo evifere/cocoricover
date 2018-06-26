@@ -10,6 +10,22 @@
         </option>
       </select>
     </div>
+    <div class="row">
+      <span class="col">Logos : </span>
+      <select v-model="logo" class="col">
+        <option v-for="logo in logos" v-bind:value="logo">
+          {{ logo }}
+        </option>
+      </select>
+    </div>
+      <div class="row">
+      <span class="col">Color : </span>
+      <select class="col" v-model="mainColor">
+        <option v-for="mainColor in mainColors" v-bind:value="mainColor">
+          {{ mainColor }}
+        </option>
+      </select>
+    </div>
     <div>
         <label for="text-font-size">Font size:{{fontSize}}</label>
         <input type="range" value="" min="1" max="120" step="1" id="text-font-size" v-model="fontSize">
