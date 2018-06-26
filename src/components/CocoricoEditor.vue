@@ -99,7 +99,7 @@ export default {
 
     let _self = this;
 
-    fabric.Image.fromURL("/animals/" + this.logo + ".png", function(oImg) {
+    fabric.Image.fromURL("./animals/" + this.logo + ".png", function(oImg) {
       oImg.set("left", 125).set("top", 100);
       _self.$canvas.add(oImg);
       _self.$coverImg = oImg;
