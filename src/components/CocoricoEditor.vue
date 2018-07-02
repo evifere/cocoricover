@@ -9,14 +9,20 @@
     <el-main>
       <el-col>
         <el-row>
-          <el-select v-model="fontFamily" placeholder="Mais que fais la police ?">
-            <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
-          </el-select>
+          <el-col :span="8">Mais que fais la police !</el-col>
+          <el-col :span="16">
+            <el-select v-model="fontFamily" placeholder="Mais que fais la police ?">
+              <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
+            </el-select>
+          </el-col>        
         </el-row>
         <el-row>
-          <el-select v-model="logo" placeholder="Ton logo c'est ici !">
-            <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
-          </el-select>
+          <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
+          <el-col :span="16">
+            <el-select v-model="logo" placeholder="Ton logo c'est ici !">
+              <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
+            </el-select>
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">L'égoût et les couleurs !</el-col>
@@ -83,7 +89,7 @@ export default {
       mainColors: require("./cocoricolors.json"),
       fonts: require("./fonts.json"),
       gofonts: require("./gofonts.json"),
-      alignments:["Left","Center","Justify","Right"]
+      alignments: ["Left", "Center", "Justify", "Right"]
     };
   },
 
