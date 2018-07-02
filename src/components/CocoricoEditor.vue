@@ -1,56 +1,62 @@
 <template>
-  <div class="page">
-
-    <div class="col">
-    <div class="row">
-      <span class="col">fontFamily : </span>
-      <select class="col" v-model="fontFamily">
-        <option v-for="font in fonts" v-bind:value="font">
-          {{ font }}
-        </option>
-      </select>
-    </div>
-    <div class="row">
-      <span class="col">Logos : </span>
-      <select v-model="logo" class="col">
-        <option v-for="logo in logos" v-bind:value="logo">
-          {{ logo }}
-        </option>
-      </select>
-    </div>
-      <div class="row">
-      <span class="col">Color : </span>
-      <select class="col" v-model="mainColor">
-        <option v-for="mainColor in mainColors" v-bind:value="mainColor">
-          {{ mainColor }}
-        </option>
-      </select>
-    </div>
-    <div>
-        <label for="text-font-size">Font size:{{fontSize}}</label>
-        <input type="range" value="" min="1" max="120" step="1" id="text-font-size" v-model="fontSize">
-    </div>
-    <div>
-        <label for="text-line-height">Line height:{{lineHeight}}</label>
-        <input type="range" value="" min="0" max="10" step="0.1" id="text-line-height" v-model="lineHeight">
-    </div>
-    <div>
-      <label for="text-align" >Text align:</label>
-       <select id="text-align" class="btn-object-action" v-model="textAlign"><option>Left</option><option>Center</option><option>Right</option><option>Justify</option></select>
-    </div>
-    <div class="row centered">
-        <button   v-on:click="saveToPng" >Preview as png</button>
-    </div>
-    <div class="row centered">
-      <a ref="downloadPng" href="#"  v-on:click="downloadPng" download="cocoricover.png">Download PNG</a>
-    </div>
-    <div class="board col">
+<el-container>
+  <el-aside width="505px">
       <canvas id='background'></canvas>
       <img  width="500" height="700" ref="preview" src="" />
-    </div>
-   </div>
+  </el-aside>
+  <el-container>
+    <el-header>Cocoricorly générateur de couverture parodique !</el-header>
+    <el-main>
+      <el-col>
+        <el-row>
+          <span class="col">fontFamily : </span>
+          <select class="col" v-model="fontFamily">
+            <option v-for="font in fonts" v-bind:value="font">
+              {{ font }}
+            </option>
+          </select>
+        </el-row>
+        <el-row>
+          <span class="col">Logos : </span>
+          <select v-model="logo" class="col">
+            <option v-for="logo in logos" v-bind:value="logo">
+              {{ logo }}
+            </option>
+          </select>
+        </el-row>
+        <el-row>
+          <span class="col">Color : </span>
+          <select class="col" v-model="mainColor">
+            <option v-for="mainColor in mainColors" v-bind:value="mainColor">
+              {{ mainColor }}
+            </option>
+          </select>
+        </el-row>
+        <el-row>
+            <label for="text-font-size">Font size:{{fontSize}}</label>
+            <input type="range" value="" min="1" max="120" step="1" id="text-font-size" v-model="fontSize">
+        </el-row>
+        <el-row>
+            <label for="text-line-height">Line height:{{lineHeight}}</label>
+            <input type="range" value="" min="0" max="10" step="0.1" id="text-line-height" v-model="lineHeight">
+        </el-row>
+        <el-row>
+          <label for="text-align" >Text align:</label>
+           <select id="text-align" class="btn-object-action" v-model="textAlign"><option>Left</option><option>Center</option><option>Right</option><option>Justify</option></select>
+        </el-row>
+        <el-row>
+          <el-button type="primary" plain v-on:click="saveToPng">Preview as png</el-button>
+          <a ref="downloadPng" href="#" download="cocoricover.png" v-show="false"></a>
+          <el-button type="primary"  v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
+        </el-row>
+    </el-col>
 
-  </div>
+
+    </el-main>
+    <el-footer>copyright 2018 @cocoricorly </el-footer>
+  </el-container>
+</el-container>
+
 </template>
 
 <script scoped>
@@ -75,13 +81,6 @@ export default {
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
       mainColor: "darkmagenta",
-      fonts: [
-        "Times New Roman",
-        "Pacifico",
-        "VT323",
-        "Quicksand",
-        "Inconsolata"
-      ],
       logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
       fonts: require("./fonts.json"),
@@ -212,6 +211,7 @@ export default {
 
     downloadPng() {
       this.$refs.downloadPng.href = this.$canvas.toDataURL("image/png");
+      this.$refs.downloadPng.click();
     },
 
     makeLine(coords, color) {
