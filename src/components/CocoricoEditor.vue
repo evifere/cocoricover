@@ -9,12 +9,9 @@
     <el-main>
       <el-col>
         <el-row>
-          <span class="col">fontFamily : </span>
-          <select class="col" v-model="fontFamily">
-            <option v-for="font in fonts" v-bind:value="font">
-              {{ font }}
-            </option>
-          </select>
+          <el-select v-model="fontFamily" placeholder="Mais que fais la police ?">
+            <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
+          </el-select>
         </el-row>
         <el-row>
           <span class="col">Logos : </span>
