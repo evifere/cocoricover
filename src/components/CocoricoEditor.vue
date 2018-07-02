@@ -1,8 +1,10 @@
 <template>
 <el-container>
-  <el-aside width="505px">
-      <canvas id='background'></canvas>
-      <img  width="500" height="700" ref="preview" src="" />
+  <el-aside width="508px" v-show="!isEditable">
+        <img  width="500" height="700" ref="preview" src="" />
+  </el-aside>
+  <el-aside width="525px" v-show="isEditable">
+        <canvas id='background' v-visible="isEditable"></canvas>
   </el-aside>
   <el-container>
     <el-header>Cocoricorly générateur de couverture parodique !</el-header>
@@ -49,7 +51,9 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-button type="primary" plain v-on:click="saveToPng">Preview as png</el-button>
+          <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
+        </el-row>
+        <el-row>
           <a ref="downloadPng" href="#" download="cocoricover.png" v-show="false"></a>
           <el-button type="primary"  v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
         </el-row>
@@ -89,7 +93,8 @@ export default {
       mainColors: require("./cocoricolors.json"),
       fonts: require("./fonts.json"),
       gofonts: require("./gofonts.json"),
-      alignments: ["Left", "Center", "Justify", "Right"]
+      alignments: ["Left", "Center", "Justify", "Right"],
+      isEditable:true
     };
   },
 
@@ -289,47 +294,8 @@ img {
   border: 1px solid blue;
 }
 
-div.board {
-  display: inline-flex;
-}
-
-div.board img {
-  margin-left: 0.8em;
-}
-
-.hidden {
-  display: none;
-}
-
-.page {
-  display: flex;
-}
-.col {
-  flex: 1;
-}
-.row {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -0.5rem;
-  margin-left: -0.5rem;
-  padding: 0.5em;
-}
-
-.row.centered {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  text-align: center;
+.el-aside{
+  overflow: hidden;
+  min-height: 706px;
 }
 </style>
