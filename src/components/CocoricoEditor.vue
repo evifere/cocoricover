@@ -14,12 +14,9 @@
           </el-select>
         </el-row>
         <el-row>
-          <span class="col">Logos : </span>
-          <select v-model="logo" class="col">
-            <option v-for="logo in logos" v-bind:value="logo">
-              {{ logo }}
-            </option>
-          </select>
+          <el-select v-model="logo" placeholder="Ton logo c'est ici !">
+            <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
+          </el-select>
         </el-row>
         <el-row>
           <span class="col">Color : </span>
