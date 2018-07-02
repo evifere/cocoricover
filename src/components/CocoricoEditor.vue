@@ -19,12 +19,12 @@
           </el-select>
         </el-row>
         <el-row>
-          <span class="col">Color : </span>
-          <select class="col" v-model="mainColor">
-            <option v-for="mainColor in mainColors" v-bind:value="mainColor">
-              {{ mainColor }}
-            </option>
-          </select>
+          <el-col :span="8">L'égoût et les couleurs !</el-col>
+           <el-col :span="16">          
+            <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !">
+              <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor"></el-option>
+            </el-select>
+          </el-col>
         </el-row>
         <el-row>
            <el-col :span="8">Font size</el-col>
