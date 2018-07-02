@@ -28,11 +28,11 @@
         </el-row>
         <el-row>
            <el-col :span="8">Font size</el-col>
-           <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input></el-slider></el-col :span="12">
+           <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input></el-slider></el-col>
         </el-row>
         <el-row>
-            <label for="text-line-height">Line height:{{lineHeight}}</label>
-            <input type="range" value="" min="0" max="10" step="0.1" id="text-line-height" v-model="lineHeight">
+           <el-col :span="8">Line height</el-col>
+           <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input></el-slider></el-col>
         </el-row>
         <el-row>
           <label for="text-align" >Text align:</label>
@@ -258,7 +258,7 @@ export default {
       this.setActiveProp("fontSize", this.fontSize);
     },
     lineHeight() {
-      this.setActiveProp("lineHeight", this.lineHeight.toLowerCase());
+      this.setActiveProp("lineHeight", this.lineHeight);
     },
     textAlign() {
       this.setActiveProp("textAlign", this.textAlign.toLowerCase());
