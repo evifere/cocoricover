@@ -35,8 +35,12 @@
            <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input></el-slider></el-col>
         </el-row>
         <el-row>
-          <label for="text-align" >Text align:</label>
-           <select id="text-align" class="btn-object-action" v-model="textAlign"><option>Left</option><option>Center</option><option>Right</option><option>Justify</option></select>
+          <el-col :span="8">Text align</el-col>
+          <el-col :span="16">
+            <el-select v-model="textAlign" placeholder="Alignement">
+              <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
+            </el-select>
+          </el-col>
         </el-row>
         <el-row>
           <el-button type="primary" plain v-on:click="saveToPng">Preview as png</el-button>
@@ -69,7 +73,7 @@ export default {
       fontFamily: "Times New Roman",
       fontSize: 20,
       lineHeight: 1.16,
-      textAlign: "Left",
+      textAlign: "left",
       topText: "Taupe texte izi year !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
@@ -78,7 +82,8 @@ export default {
       logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
       fonts: require("./fonts.json"),
-      gofonts: require("./gofonts.json")
+      gofonts: require("./gofonts.json"),
+      alignments:["Left","Center","Justify","Right"]
     };
   },
 
@@ -261,7 +266,7 @@ export default {
       this.setActiveProp("lineHeight", this.lineHeight);
     },
     textAlign() {
-      this.setActiveProp("textAlign", this.textAlign.toLowerCase());
+      this.setActiveProp("textAlign", this.textAlign);
     }
   }
 };
