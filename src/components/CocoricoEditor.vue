@@ -27,8 +27,8 @@
           </select>
         </el-row>
         <el-row>
-            <label for="text-font-size">Font size:{{fontSize}}</label>
-            <input type="range" value="" min="1" max="120" step="1" id="text-font-size" v-model="fontSize">
+           <el-col :span="8">Font size</el-col>
+           <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input></el-slider></el-col :span="12">
         </el-row>
         <el-row>
             <label for="text-line-height">Line height:{{lineHeight}}</label>
@@ -255,7 +255,7 @@ export default {
       this.$canvas.requestRenderAll();
     },
     fontSize() {
-      this.setActiveProp("fontSize", this.fontSize.toLowerCase());
+      this.setActiveProp("fontSize", this.fontSize);
     },
     lineHeight() {
       this.setActiveProp("lineHeight", this.lineHeight.toLowerCase());
