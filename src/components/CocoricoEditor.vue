@@ -9,59 +9,59 @@
   <el-container>
     <el-header>Cocoricorly générateur de couverture parodique !</el-header>
     <el-main>
-      <el-col>
-        <el-row>
-          <el-col :span="8">Mais que fais la police !</el-col>
-          <el-col :span="16">
-            <el-select v-model="fontFamily" placeholder="Mais que fais la police ?">
-              <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
-            </el-select>
-          </el-col>        
-        </el-row>
-        <el-row>
-          <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
-          <el-col :span="16">
-            <el-select v-model="logo" placeholder="Ton logo c'est ici !">
-              <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
-            </el-select>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">L'égoût et les couleurs !</el-col>
-           <el-col :span="16">          
-            <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !">
-              <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor"></el-option>
-            </el-select>
-          </el-col>
-        </el-row>
-        <el-row>
-           <el-col :span="8">Font size</el-col>
-           <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input></el-slider></el-col>
-        </el-row>
-        <el-row>
-           <el-col :span="8">Line height</el-col>
-           <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input></el-slider></el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">Text align</el-col>
-          <el-col :span="16">
-            <el-select v-model="textAlign" placeholder="Alignement">
-              <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
-            </el-select>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
-        </el-row>
-        <el-row>
-          <a ref="downloadPng" href="#" download="cocoricover.png" v-show="false"></a>
-          <el-button type="primary"  v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
-        </el-row>
-    </el-col>
-
-
+        <hr/>
+        <el-col class="params-panel">
+          <el-row>
+            <el-col :span="8">Mais que fais la police !</el-col>
+            <el-col :span="16">
+              <el-select v-model="fontFamily" placeholder="Mais que fais la police ?">
+                <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
+              </el-select>
+            </el-col>        
+          </el-row>
+          <el-row>
+            <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
+            <el-col :span="16">
+              <el-select v-model="logo" placeholder="Ton logo c'est ici !">
+                <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">L'égoût et les couleurs !</el-col>
+             <el-col :span="16">          
+              <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !">
+                <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
+             <el-col :span="8">Font size</el-col>
+             <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input></el-slider></el-col>
+          </el-row>
+          <el-row>
+             <el-col :span="8">Line height</el-col>
+             <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input></el-slider></el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">Text align</el-col>
+            <el-col :span="16">
+              <el-select v-model="textAlign" placeholder="Alignement">
+                <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
+          </el-row>
+          <hr/>
+          <el-row>
+            <a ref="downloadPng" href="#" download="cocoricover.png" v-show="false"></a>
+            <el-button type="primary"  v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
+          </el-row>
+      </el-col>
     </el-main>
-    <el-footer>copyright 2018 @cocoricorly </el-footer>
+    <el-footer align="right">copyright 2018 @cocoricorly </el-footer>
   </el-container>
 </el-container>
 
@@ -297,5 +297,19 @@ img {
 .el-aside{
   overflow: hidden;
   min-height: 706px;
+}
+
+.el-header{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.el-footer{
+  font-size: 20px;
+  font-weight: italic;
+}
+
+.params-panel .el-row{
+  padding-top: 0.6em;
 }
 </style>
