@@ -14,7 +14,7 @@
           <el-row>
             <el-col :span="8">Mais que fais la police !</el-col>
             <el-col :span="16">
-              <el-select v-model="fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected">
+              <el-select v-model="fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>        
@@ -22,7 +22,7 @@
           <el-row>
             <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
             <el-col :span="16">
-              <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isTextSelected">
+              <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
                 <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
               </el-select>
             </el-col>
@@ -30,23 +30,23 @@
           <el-row>
             <el-col :span="8">L'égoût et les couleurs !</el-col>
              <el-col :span="16">          
-              <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isTextSelected">
+              <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isEditable">
                 <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor"></el-option>
               </el-select>
             </el-col>
           </el-row>
           <el-row>
              <el-col :span="8">Font size</el-col>
-             <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected"></el-slider></el-col>
+             <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
              <el-col :span="8">Line height</el-col>
-             <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected"></el-slider></el-col>
+             <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
             <el-col :span="8">Text align</el-col>
             <el-col :span="16">
-              <el-select v-model="textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected">
+              <el-select v-model="textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
                 <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
               </el-select>
             </el-col>
