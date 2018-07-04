@@ -4,7 +4,7 @@
         <img  width="500" height="700" ref="preview" src="" />
   </el-aside>
   <el-aside width="525px" v-show="isEditable">
-        <canvas id='background' v-visible="isEditable"></canvas>
+        <canvas id='background'></canvas>
   </el-aside>
   <el-container>
     <el-header>Cocoricorly générateur de couverture parodique !</el-header>
@@ -14,7 +14,7 @@
           <el-row>
             <el-col :span="8">Mais que fais la police !</el-col>
             <el-col :span="16">
-              <el-select v-model="fontFamily" placeholder="Mais que fais la police ?">
+              <el-select v-model="fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected">
                 <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>        
@@ -22,7 +22,7 @@
           <el-row>
             <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
             <el-col :span="16">
-              <el-select v-model="logo" placeholder="Ton logo c'est ici !">
+              <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isTextSelected">
                 <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo"></el-option>
               </el-select>
             </el-col>
@@ -30,23 +30,23 @@
           <el-row>
             <el-col :span="8">L'égoût et les couleurs !</el-col>
              <el-col :span="16">          
-              <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !">
+              <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isTextSelected">
                 <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor"></el-option>
               </el-select>
             </el-col>
           </el-row>
           <el-row>
              <el-col :span="8">Font size</el-col>
-             <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input></el-slider></el-col>
+             <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected"></el-slider></el-col>
           </el-row>
           <el-row>
              <el-col :span="8">Line height</el-col>
-             <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input></el-slider></el-col>
+             <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected"></el-slider></el-col>
           </el-row>
           <el-row>
             <el-col :span="8">Text align</el-col>
             <el-col :span="16">
-              <el-select v-model="textAlign" placeholder="Alignement">
+              <el-select v-model="textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected">
                 <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
               </el-select>
             </el-col>
@@ -83,6 +83,7 @@ export default {
       fontFamily: "Times New Roman",
       fontSize: 20,
       lineHeight: 1.16,
+      isTextSelected: true,
       textAlign: "left",
       topText: "Taupe texte izi year !",
       titleText: "Le Ch'titre qui l'es bien là",
@@ -94,7 +95,7 @@ export default {
       fonts: require("./fonts.json"),
       gofonts: require("./gofonts.json"),
       alignments: ["Left", "Center", "Justify", "Right"],
-      isEditable:true
+      isEditable: true
     };
   },
 
@@ -117,7 +118,8 @@ export default {
       width: 400,
       fontSize: 20,
       fontStyle: "italic",
-      borderColor: "green"
+      borderColor: "green",
+      textAlign:"center"
     });
 
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
@@ -177,6 +179,18 @@ export default {
       fontWeight: "bold"
     });
     this.$canvas.add(cocoricopiright).add(cocoricopiright);
+
+    this.$canvas.on("selection:cleared", () => {
+      this.isTextSelected = !!this.$canvas.getActiveObject();
+    });
+
+    this.$canvas.on("selection:created", (e) => {
+      this.isTextSelected = (e.target.get('type') === 'textbox');
+    });
+
+    this.$canvas.on("selection:updated", (e) => {
+      this.isTextSelected = (e.target.get('type') === 'textbox');
+    });
 
     this.saveToPng();
   },
@@ -294,22 +308,22 @@ img {
   border: 1px solid blue;
 }
 
-.el-aside{
+.el-aside {
   overflow: hidden;
   min-height: 706px;
 }
 
-.el-header{
+.el-header {
   font-size: 30px;
   font-weight: bold;
 }
 
-.el-footer{
+.el-footer {
   font-size: 20px;
   font-weight: italic;
 }
 
-.params-panel .el-row{
+.params-panel .el-row {
   padding-top: 0.6em;
 }
 </style>
