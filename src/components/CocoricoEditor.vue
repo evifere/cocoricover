@@ -80,10 +80,6 @@ export default {
 
   data() {
     return {
-      fontFamily: "Times New Roman",
-      fontSize: 20,
-      lineHeight: 1.16,
-      textAlign: "left",
       currentTextObjectConfig: {
         fontFamily: "Times New Roman",
         fontSize: 5,
@@ -276,14 +272,14 @@ export default {
     "currentTextObjectConfig.fontFamily"() {
       /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
-      if (this.gofonts.includes(this.fontFamily)) {
-        console.log("loadAndUse fontFamily changed to " + this.fontFamily);
+      if (this.gofonts.includes(this.currentTextObjectConfig.fontFamily)) {
+        console.log("loadAndUse fontFamily changed to " + this.currentTextObjectConfig.fontFamily);
 
-        this.loadAndUse(this.fontFamily);
+        this.loadAndUse(this.currentTextObjectConfig.fontFamily);
       } else {
-        console.log("fontFamily changed to " + this.fontFamily.toLowerCase());
+        console.log("fontFamily changed to " + this.currentTextObjectConfig.fontFamily.toLowerCase());
 
-        this.setActiveProp("fontFamily", this.fontFamily.toLowerCase());
+        this.setActiveProp("fontFamily", this.currentTextObjectConfig.fontFamily.toLowerCase());
       }
     },
 
@@ -306,15 +302,6 @@ export default {
       });
 
       this.$canvas.requestRenderAll();
-    },
-    fontSize() {
-      this.setActiveProp("fontSize", this.fontSize);
-    },
-    lineHeight() {
-      this.setActiveProp("lineHeight", this.lineHeight);
-    },
-    textAlign() {
-      this.setActiveProp("textAlign", this.textAlign);
     }
   }
 };
