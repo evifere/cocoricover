@@ -106,6 +106,8 @@ export default {
       },
       isTextSelected: true,
       topText: "Taupe texte izi year !",
+      guideText:"Le guide expéditif.",
+      guideTextBottom:"100 % pas remboursé !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
@@ -122,7 +124,6 @@ export default {
   },
 
   mounted() {
-    /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
     this.$canvas = new fabric.Canvas("background", {
       width: 500,
       height: 700,
@@ -153,6 +154,32 @@ export default {
       _self.$canvas.add(oImg);
       _self.$coverImg = oImg;
     });
+
+    //guide text
+    let guideTextbox = new fabric.Textbox(this.guideText, {
+      left: 10,
+      top: 390,
+      width: 490,
+      fontSize: 20,
+      fontStyle: "normal",
+      borderColor: "green",
+      textAlign: "left"
+    });
+
+    this.$canvas.add(guideTextbox);
+
+    //guide text
+    let guideTextboxBottom = new fabric.Textbox(this.guideTextBottom, {
+      left: 10,
+      top: 560,
+      width: 490,
+      fontSize: 20,
+      fontStyle: "bold",
+      borderColor: "green",
+      textAlign: "right"
+    });
+
+    this.$canvas.add(guideTextboxBottom);
 
     //title text
     this.$titleTextbox = new fabric.Textbox(this.titleText, {
@@ -290,21 +317,10 @@ export default {
   },
   watch: {
     "currentTextObjectConfig.fontFamily"() {
-      /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
       if (this.gofonts.includes(this.currentTextObjectConfig.fontFamily)) {
-        console.log(
-          "loadAndUse fontFamily changed to " +
-            this.currentTextObjectConfig.fontFamily
-        );
-
         this.loadAndUse(this.currentTextObjectConfig.fontFamily);
       } else {
-        console.log(
-          "fontFamily changed to " +
-            this.currentTextObjectConfig.fontFamily.toLowerCase()
-        );
-
         this.setActiveProp(
           "fontFamily",
           this.currentTextObjectConfig.fontFamily.toLowerCase()
