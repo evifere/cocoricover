@@ -20,6 +20,22 @@
             </el-col>        
           </el-row>
           <el-row>
+            <el-col :span="8">Gérer les kilos en trop</el-col>
+            <el-col :span="16">
+              <el-select v-model="currentTextObjectConfig.fontWeight" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
+                <el-option v-for="font in fontWeights" :key="font" :label="font" :value="font"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">Avoir du style </el-col>
+            <el-col :span="16">
+              <el-select v-model="currentTextObjectConfig.fontStyle" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
+                <el-option v-for="font in fontStyles" :key="font" :label="font" :value="font"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
             <el-col :span="16">
               <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
@@ -82,6 +98,8 @@ export default {
     return {
       currentTextObjectConfig: {
         fontFamily: "Times New Roman",
+        fontWeight: "normal",
+        fontStyle: "normal",
         fontSize: 5,
         lineHeight: 1.16,
         textAlign: "left"
@@ -97,7 +115,9 @@ export default {
       fonts: require("./fonts.json"),
       gofonts: require("./gofonts.json"),
       alignments: ["Left", "Center", "Justify", "Right"],
-      isEditable: true
+      isEditable: true,
+      fontStyles: ["", "normal", "italic", "oblique"],
+      fontWeights: ["bold", "normal", 400, 600, 800]
     };
   },
 
@@ -273,13 +293,22 @@ export default {
       /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
       if (this.gofonts.includes(this.currentTextObjectConfig.fontFamily)) {
-        console.log("loadAndUse fontFamily changed to " + this.currentTextObjectConfig.fontFamily);
+        console.log(
+          "loadAndUse fontFamily changed to " +
+            this.currentTextObjectConfig.fontFamily
+        );
 
         this.loadAndUse(this.currentTextObjectConfig.fontFamily);
       } else {
-        console.log("fontFamily changed to " + this.currentTextObjectConfig.fontFamily.toLowerCase());
+        console.log(
+          "fontFamily changed to " +
+            this.currentTextObjectConfig.fontFamily.toLowerCase()
+        );
 
-        this.setActiveProp("fontFamily", this.currentTextObjectConfig.fontFamily.toLowerCase());
+        this.setActiveProp(
+          "fontFamily",
+          this.currentTextObjectConfig.fontFamily.toLowerCase()
+        );
       }
     },
 
