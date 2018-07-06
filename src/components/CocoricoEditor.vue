@@ -52,6 +52,14 @@
             </el-col>
           </el-row>
           <el-row>
+            <el-col :span="8">La couleur de la plume est plus forte que le pêt.</el-col>
+             <el-col :span="16">          
+              <el-select v-model="currentTextObjectConfig.fill" placeholder="La couleur du texte" v-bind:disabled="!isTextSelected  || !isEditable">
+                <el-option v-for="fillColor in mainColors" :key="fillColor" :label="fillColor" :value="fillColor"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
              <el-col :span="8">Font size</el-col>
              <el-col :span="16"><el-slider v-model="currentTextObjectConfig.fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
@@ -102,7 +110,8 @@ export default {
         fontStyle: "normal",
         fontSize: 5,
         lineHeight: 1.16,
-        textAlign: "left"
+        textAlign: "left",
+        fill: "white"
       },
       isTextSelected: true,
       topText: "Taupe texte izi year !",
@@ -261,8 +270,9 @@ export default {
     },
     onObjectSelected(evt) {
       let currentObject = this.$canvas.findTarget(evt);
-      this.isTextSelected = !!currentObject;
-      if (this.isTextSelected) {
+      this.isTextSelected = false;
+      if (!!currentObject) {
+        this.isTextSelected = !(currentObject.type === "image");
         this.currentTextObjectConfig = currentObject.toObject();
       }
     },
@@ -327,7 +337,7 @@ export default {
       } else {
         this.setActiveProp(
           "fontFamily",
-          this.currentTextObjectConfig.fontFamily.toLowerCase()
+          this.currentTextObjectConfig.fontFamily
         );
       }
     },
