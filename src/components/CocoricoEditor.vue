@@ -14,7 +14,7 @@
           <el-row>
             <el-col :span="8">Mais que fais la police !</el-col>
             <el-col :span="16">
-              <el-select v-model="fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
+              <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>        
@@ -37,16 +37,16 @@
           </el-row>
           <el-row>
              <el-col :span="8">Font size</el-col>
-             <el-col :span="16"><el-slider v-model="fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
+             <el-col :span="16"><el-slider v-model="currentTextObjectConfig.fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
              <el-col :span="8">Line height</el-col>
-             <el-col :span="16"><el-slider v-model="lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
+             <el-col :span="16"><el-slider v-model="currentTextObjectConfig.lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
             <el-col :span="8">Text align</el-col>
             <el-col :span="16">
-              <el-select v-model="textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
+              <el-select v-model="currentTextObjectConfig.textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
                 <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
               </el-select>
             </el-col>
@@ -83,8 +83,14 @@ export default {
       fontFamily: "Times New Roman",
       fontSize: 20,
       lineHeight: 1.16,
-      isTextSelected: true,
       textAlign: "left",
+      currentTextObjectConfig: {
+        fontFamily: "Times New Roman",
+        fontSize: 5,
+        lineHeight: 1.16,
+        textAlign: "left"
+      },
+      isTextSelected: true,
       topText: "Taupe texte izi year !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
@@ -119,11 +125,11 @@ export default {
       fontSize: 20,
       fontStyle: "italic",
       borderColor: "green",
-      textAlign:"center"
+      textAlign: "center"
     });
 
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
-
+    this.currentTextObjectConfig = topTextbox.toObject();
     let _self = this;
 
     fabric.Image.fromURL("./animals/" + this.logo + ".png", function(oImg) {
@@ -180,22 +186,39 @@ export default {
     });
     this.$canvas.add(cocoricopiright).add(cocoricopiright);
 
-    this.$canvas.on("selection:cleared", () => {
-      this.isTextSelected = !!this.$canvas.getActiveObject();
-    });
+    this.registerTextWatcher();
 
-    this.$canvas.on("selection:created", (e) => {
-      this.isTextSelected = (e.target.get('type') === 'textbox');
-    });
+    this.$canvas.on("selection:cleared", this.onObjectSelected);
 
-    this.$canvas.on("selection:updated", (e) => {
-      this.isTextSelected = (e.target.get('type') === 'textbox');
-    });
+    this.$canvas.on("selection:created", this.onObjectSelected);
+
+    this.$canvas.on("selection:updated", this.onObjectSelected);
 
     this.saveToPng();
   },
 
   methods: {
+    /**
+     * registerTextWatcher - map defaut wtacher for main currentTextObjectConfig values
+     *
+     */
+    registerTextWatcher() {
+      Object.keys(this.currentTextObjectConfig)
+        .filter(confKey => confKey !== "fontFamily")
+        .forEach(confKey =>
+          this.$watch("currentTextObjectConfig." + confKey, newVal =>
+            this.setActiveProp(confKey, newVal)
+          )
+        );
+    },
+    onObjectSelected(evt) {
+      let currentObject = this.$canvas.findTarget(evt);
+      this.isTextSelected = !!currentObject;
+      if (this.isTextSelected) {
+        this.currentTextObjectConfig = currentObject.toObject();
+      }
+    },
+
     setActiveProp(name, value) {
       var object = this.$canvas.getActiveObject();
       if (!object) {
@@ -250,7 +273,7 @@ export default {
     }
   },
   watch: {
-    fontFamily() {
+    "currentTextObjectConfig.fontFamily"() {
       /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
       if (this.gofonts.includes(this.fontFamily)) {
