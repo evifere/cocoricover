@@ -106,8 +106,8 @@ export default {
       },
       isTextSelected: true,
       topText: "Taupe texte izi year !",
-      guideText:"Le guide expéditif.",
-      guideTextBottom:"100 % pas remboursé !",
+      guideText: "Le guide expéditif.",
+      guideTextBottom: "100 % pas remboursé !",
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
@@ -149,7 +149,12 @@ export default {
     this.currentTextObjectConfig = topTextbox.toObject();
     let _self = this;
 
-    fabric.Image.fromURL("./animals/" + this.logo + ".png", function(oImg) {
+    let baseUrl =
+      process.env.NODE_ENV === "production "
+        ? "http://evifere.lescigales.org/cocoricover/animals/"
+        : "./animals/";
+
+    fabric.Image.fromURL(baseUrl + this.logo + ".png", function(oImg) {
       oImg.set("left", 125).set("top", 100);
       _self.$canvas.add(oImg);
       _self.$coverImg = oImg;
@@ -317,7 +322,6 @@ export default {
   },
   watch: {
     "currentTextObjectConfig.fontFamily"() {
-
       if (this.gofonts.includes(this.currentTextObjectConfig.fontFamily)) {
         this.loadAndUse(this.currentTextObjectConfig.fontFamily);
       } else {
@@ -330,7 +334,12 @@ export default {
 
     logo() {
       let _self = this;
-      this.$coverImg.setSrc("/animals/" + this.logo + ".png", function(oImg) {
+      let baseUrl =
+        process.env.NODE_ENV === "production "
+          ? "http://evifere.lescigales.org/cocoricover/animals/"
+          : "./animals/";
+
+      this.$coverImg.setSrc(baseUrl + this.logo + ".png", function(oImg) {
         oImg.set("left", 125).set("top", 100);
         _self.$canvas.add(oImg);
         _self.$coverImg = oImg;
