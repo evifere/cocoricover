@@ -77,7 +77,11 @@
             <el-col :span="8">La couleur de la plume est plus forte que le pêt.</el-col>
              <el-col :span="16">          
               <el-select v-model="currentTextObjectConfig.fill" placeholder="La couleur du texte" v-bind:disabled="!isTextSelected  || !isEditable">
-                <el-option v-for="fillColor in mainColors" :key="fillColor" :label="fillColor" :value="fillColor"></el-option>
+                <el-option v-for="fillColor in mainColors" :key="fillColor" :label="fillColor" :value="fillColor">
+                  <el-row>
+                    <el-col :span="16"><span >{{ fillColor }}</span></el-col> <el-col :span="8"><div class="color-box" :style="'background:'+fillColor+';'"></div></el-col>
+                  </el-row>
+                </el-option>
               </el-select>
             </el-col>
           </el-row>
@@ -471,5 +475,9 @@ canvas,
 
 .params-panel .el-row {
   padding-top: 0.6em;
+}
+
+.color-box{
+  margin-top:8px;width:16px;height:16px;
 }
 </style>
