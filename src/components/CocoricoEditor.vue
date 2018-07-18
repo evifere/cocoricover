@@ -41,8 +41,8 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">Un logo logo dans la case avec ma frame !</el-col>
-            <el-col :span="16">
+            <el-col :span="6">Un logo logo dans la case avec ma frame !</el-col>
+            <el-col :span="6">
               <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
                 <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo">
                   <el-row>
@@ -51,6 +51,11 @@
                   </el-row>
                 </el-option>
               </el-select>
+            </el-col>
+            <el-col :span="12">
+              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="externalLogo">
+                <template slot="prepend">Logo perso</template>
+              </el-input>
             </el-col>
           </el-row>
           <el-row>
@@ -151,6 +156,7 @@ export default {
       titleText: "Le Ch'titre qui l'es bien là",
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
+      externalLogo: "",
       mainColor: "darkmagenta",
       logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
@@ -406,6 +412,20 @@ export default {
         _self.$canvas.add(oImg);
         _self.$coverImg = oImg;
       });
+    },
+
+    externalLogo() {
+      let _self = this;
+
+      this.$coverImg.setSrc(
+        this.externalLogo,
+        function(oImg) {
+          oImg.set("left", 125).set("top", 100);
+          _self.$canvas.add(oImg);
+          _self.$coverImg = oImg;
+        },
+        { crossOrigin: "Anonymous" }
+      );
     },
 
     mainColor: function() {
