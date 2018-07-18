@@ -209,7 +209,7 @@ export default {
     //guide text
     let guideTextbox = new fabric.Textbox(this.guideText, {
       left: 10,
-      top: 390,
+      top: 385,
       width: 490,
       fontSize: 20,
       fontStyle: "normal",
@@ -223,7 +223,7 @@ export default {
     let guideTextboxBottom = new fabric.Textbox(this.guideTextBottom, {
       left: 10,
       top: 560,
-      width: 490,
+      width: 480,
       fontSize: 20,
       fontStyle: "bold",
       borderColor: "green",
@@ -237,7 +237,7 @@ export default {
     this.$titleTextbox = new fabric.Textbox(this.titleText, {
       left: 10,
       top: 410,
-      width: 490,
+      width: 480,
       height: 2000,
       textBackgroundColor: this.mainColor,
       borderColor: "green",
