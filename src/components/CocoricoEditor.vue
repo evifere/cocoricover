@@ -110,7 +110,7 @@
             <el-col :span="8">
              <el-button type="primary"  v-bind:disabled="!isEditable" v-on:click="moveForward">Si tu avances</el-button>
             </el-col>
-            <el-col :span="4">et</el-col>
+            <el-col :span="4" class="col-label col-text-center" >et</el-col>
             <el-col :span="8">
              <el-button type="primary" v-bind:disabled="!isEditable"  v-on:click="moveBackward">tu recules !</el-button>
             </el-col>
