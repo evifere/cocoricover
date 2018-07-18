@@ -38,6 +38,7 @@
               <el-checkbox v-model="currentTextObjectConfig.overline">Overline</el-checkbox>
             </el-col>
           </el-row>
+          <el-row class="empty"></el-row>
           <el-row>
             <el-col :span="6" class="col-label col-text-left"><label>Un logo logo dans la case avec ma frame !</label></el-col>
             <el-col :span="6">
@@ -88,6 +89,7 @@
               </el-select>
             </el-col>
           </el-row>
+          <el-row class="empty"></el-row>
           <el-row>
              <el-col :span="4" class="col-label col-text-left"><label>Thunder Stroke</label></el-col>
              <el-col :span="4">
@@ -492,5 +494,8 @@ text-align:center;
 }
 .color-box{
   margin-top:8px;width:16px;height:16px;
+}
+.el-row.empty{
+  height:2em;
 }
 </style>
