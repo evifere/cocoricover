@@ -88,6 +88,15 @@
             </el-col>
           </el-row>
           <el-row>
+            <el-col :span="8">
+             <el-button type="primary"  v-bind:disabled="!isEditable" v-on:click="moveForward">Si tu avances</el-button>
+            </el-col>
+            <el-col :span="4">et</el-col>
+            <el-col :span="8">
+             <el-button type="primary" v-bind:disabled="!isEditable"  v-on:click="moveBackward">tu recules !</el-button>
+            </el-col>
+          </el-row>
+          <el-row>
             <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
           </el-row>
           <hr/>
@@ -127,7 +136,7 @@ export default {
         lineHeight: 1.16,
         textAlign: "left",
         fill: "white",
-        strokeWidth:1,
+        strokeWidth: 1,
         stroke: "#ffffff"
       },
       isTextSelected: true,
@@ -227,7 +236,7 @@ export default {
       fill: "white",
       fontSize: 60,
       fontStyle: "normal",
-      stroke:"#C96B1D"
+      stroke: "#C96B1D"
     });
 
     this.$canvas.add(this.$titleTextbox);
@@ -347,6 +356,25 @@ export default {
         originX: "left",
         originY: "top"
       });
+    },
+
+    moveForward() {
+      let object = this.$canvas.getActiveObject();
+      if (!object) {
+        return;
+      }
+      object.bringForward(true);
+
+      this.$canvas.requestRenderAll();
+    },
+    moveBackward() {
+      let object = this.$canvas.getActiveObject();
+      if (!object) {
+        return;
+      }
+      object.sendBackwards(true);
+
+      this.$canvas.requestRenderAll();
     }
   },
   watch: {
