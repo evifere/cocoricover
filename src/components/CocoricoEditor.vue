@@ -62,7 +62,11 @@
             <el-col :span="8">L'égoût et les couleurs !</el-col>
              <el-col :span="16">          
               <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isEditable">
-                <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor"></el-option>
+                <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor">
+                  <el-row>
+                    <el-col :span="16"><span >{{ mainColor }}</span></el-col> <el-col :span="8"><div class="color-box" :style="'background:'+mainColor+';'"></div></el-col>
+                  </el-row>
+                </el-option>
               </el-select>
             </el-col>
           </el-row>
