@@ -69,13 +69,6 @@
             </el-col>
           </el-row>
           <el-row>
-             <el-col :span="8" class="col-label col-text-left"><label>Thunder Stroke</label></el-col>
-             <el-col :span="8">
-              <el-color-picker v-model="currentTextObjectConfig.stroke" size="mini" color-format="hex"></el-color-picker>
-             </el-col>
-             <el-col :span="8"><el-slider v-model="currentTextObjectConfig.strokeWidth" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected || !isEditable"></el-slider></el-col>
-          </el-row>
-          <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>La couleur de la plume est plus forte que le pêt.</label></el-col>
              <el-col :span="16">          
               <el-select v-model="currentTextObjectConfig.fill" placeholder="La couleur du texte" v-bind:disabled="!isTextSelected  || !isEditable">
@@ -86,6 +79,13 @@
                 </el-option>
               </el-select>
             </el-col>
+          </el-row>
+          <el-row>
+             <el-col :span="4" class="col-label col-text-left"><label>Thunder Stroke</label></el-col>
+             <el-col :span="4">
+              <el-color-picker v-model="currentTextObjectConfig.stroke" size="mini" color-format="hex"></el-color-picker>
+             </el-col>
+             <el-col :span="16"><el-slider v-model="currentTextObjectConfig.strokeWidth" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
              <el-col :span="8" class="col-label col-text-left"><label>Font size</label></el-col>
