@@ -81,6 +81,14 @@
             </el-col>
           </el-row>
           <el-row>
+            <el-col :span="8" class="col-label col-text-left"><label>Text align</label></el-col>
+            <el-col :span="16">
+              <el-select v-model="currentTextObjectConfig.textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
+                <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
              <el-col :span="4" class="col-label col-text-left"><label>Thunder Stroke</label></el-col>
              <el-col :span="4">
               <el-color-picker v-model="currentTextObjectConfig.stroke" size="mini" color-format="hex"></el-color-picker>
@@ -95,14 +103,7 @@
              <el-col :span="8" class="col-label col-text-left"><label>Line height</label></el-col>
              <el-col :span="16"><el-slider v-model="currentTextObjectConfig.lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
-          <el-row>
-            <el-col :span="8" class="col-label col-text-left"><label>Text align</label></el-col>
-            <el-col :span="16">
-              <el-select v-model="currentTextObjectConfig.textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
-                <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
-              </el-select>
-            </el-col>
-          </el-row>
+
           <el-row  type="flex" justify="center">
             <el-col :span="8">
              <el-button type="primary"  v-bind:disabled="!isEditable" v-on:click="moveForward">Si tu avances</el-button>
