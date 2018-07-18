@@ -57,6 +57,13 @@
             </el-col>
           </el-row>
           <el-row>
+             <el-col :span="8">Thunder Stroke</el-col>
+             <el-col :span="8">
+              <el-color-picker v-model="currentTextObjectConfig.stroke" size="mini" color-format="hex"></el-color-picker>
+             </el-col>
+             <el-col :span="8"><el-slider v-model="currentTextObjectConfig.strokeWidth" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected || !isEditable"></el-slider></el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">La couleur de la plume est plus forte que le pêt.</el-col>
              <el-col :span="16">          
               <el-select v-model="currentTextObjectConfig.fill" placeholder="La couleur du texte" v-bind:disabled="!isTextSelected  || !isEditable">
@@ -119,7 +126,9 @@ export default {
         overline: false,
         lineHeight: 1.16,
         textAlign: "left",
-        fill: "white"
+        fill: "white",
+        strokeWidth:1,
+        stroke: "#ffffff"
       },
       isTextSelected: true,
       topText: "Taupe texte izi year !",
@@ -217,7 +226,8 @@ export default {
       stroke: this.mainColor,
       fill: "white",
       fontSize: 60,
-      fontStyle: "normal"
+      fontStyle: "normal",
+      stroke:"#C96B1D"
     });
 
     this.$canvas.add(this.$titleTextbox);
