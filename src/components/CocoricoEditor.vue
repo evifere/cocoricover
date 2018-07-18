@@ -29,10 +29,15 @@
           </el-row>
           <el-row>
             <el-col :span="8">Avoir du style </el-col>
-            <el-col :span="16">
+            <el-col :span="6">
               <el-select v-model="currentTextObjectConfig.fontStyle" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fontStyles" :key="font" :label="font" :value="font"></el-option>
               </el-select>
+            </el-col>
+            <el-col :span="10">
+              <el-checkbox v-model="currentTextObjectConfig.underline">Underline</el-checkbox>
+              <el-checkbox v-model="currentTextObjectConfig.linethrough">Line through</el-checkbox>
+              <el-checkbox v-model="currentTextObjectConfig.overline">Overline</el-checkbox>
             </el-col>
           </el-row>
           <el-row>
@@ -109,6 +114,9 @@ export default {
         fontWeight: "normal",
         fontStyle: "normal",
         fontSize: 5,
+        underline: false,
+        linethrough: false,
+        overline: false,
         lineHeight: 1.16,
         textAlign: "left",
         fill: "white"
@@ -190,7 +198,8 @@ export default {
       fontSize: 20,
       fontStyle: "bold",
       borderColor: "green",
-      textAlign: "right"
+      textAlign: "right",
+      linethrough: true
     });
 
     this.$canvas.add(guideTextboxBottom);
