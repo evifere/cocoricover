@@ -12,23 +12,21 @@
         <hr/>
         <el-col class="params-panel">
           <el-row>
-            <el-col :span="8">Mais que fais la police !</el-col>
-            <el-col :span="16">
+            <el-col :span="6" class="col-label"><label>Mais que fais la police !</label></el-col>
+            <el-col :span="6">
               <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
               </el-select>
             </el-col>        
-          </el-row>
-          <el-row>
-            <el-col :span="8">Gérer les kilos en trop</el-col>
-            <el-col :span="16">
+            <el-col :span="6" class="col-label"><label>Gérer les kilos en trop</label></el-col>
+            <el-col :span="6">
               <el-select v-model="currentTextObjectConfig.fontWeight" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fontWeights" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">Avoir du style </el-col>
+            <el-col :span="8" class="col-label"><label>Avoir du style</label></el-col>
             <el-col :span="6">
               <el-select v-model="currentTextObjectConfig.fontStyle" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fontStyles" :key="font" :label="font" :value="font"></el-option>
@@ -41,7 +39,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="6">Un logo logo dans la case avec ma frame !</el-col>
+            <el-col :span="6" class="col-label"><label>Un logo logo dans la case avec ma frame !</label></el-col>
             <el-col :span="6">
               <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
                 <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo">
@@ -59,7 +57,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">L'égoût et les couleurs !</el-col>
+            <el-col :span="8" class="col-label"><label>L'égoût et les couleurs !</label></el-col>
              <el-col :span="16">          
               <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isEditable">
                 <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor">
@@ -71,14 +69,14 @@
             </el-col>
           </el-row>
           <el-row>
-             <el-col :span="8">Thunder Stroke</el-col>
+             <el-col :span="8" class="col-label"><label>Thunder Stroke</label></el-col>
              <el-col :span="8">
               <el-color-picker v-model="currentTextObjectConfig.stroke" size="mini" color-format="hex"></el-color-picker>
              </el-col>
              <el-col :span="8"><el-slider v-model="currentTextObjectConfig.strokeWidth" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">La couleur de la plume est plus forte que le pêt.</el-col>
+            <el-col :span="8" class="col-label"><label>La couleur de la plume est plus forte que le pêt.</label></el-col>
              <el-col :span="16">          
               <el-select v-model="currentTextObjectConfig.fill" placeholder="La couleur du texte" v-bind:disabled="!isTextSelected  || !isEditable">
                 <el-option v-for="fillColor in mainColors" :key="fillColor" :label="fillColor" :value="fillColor">
@@ -90,15 +88,15 @@
             </el-col>
           </el-row>
           <el-row>
-             <el-col :span="8">Font size</el-col>
+             <el-col :span="8" class="col-label"><label>Font size</label></el-col>
              <el-col :span="16"><el-slider v-model="currentTextObjectConfig.fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
-             <el-col :span="8">Line height</el-col>
+             <el-col :span="8" class="col-label"><label>Line height</label></el-col>
              <el-col :span="16"><el-slider v-model="currentTextObjectConfig.lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">Text align</el-col>
+            <el-col :span="8" class="col-label"><label>Text align</label></el-col>
             <el-col :span="16">
               <el-select v-model="currentTextObjectConfig.textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
                 <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
@@ -479,6 +477,12 @@ canvas,
 
 .params-panel .el-row {
   padding-top: 0.6em;
+}
+.params-panel .el-row .el-col label,.params-panel .el-row .el-col.col-label{
+padding-top: .5em;
+}
+.params-panel .el-row .el-col.col-label{
+text-align:left;
 }
 
 .color-box{
