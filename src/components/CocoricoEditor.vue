@@ -15,7 +15,7 @@
             <el-col :span="8">Mais que fais la police !</el-col>
             <el-col :span="16">
               <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
-                <el-option v-for="font in fonts" :key="font" :label="font" :value="font"></el-option>
+                <el-option v-for="font in fonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
               </el-select>
             </el-col>        
           </el-row>
