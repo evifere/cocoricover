@@ -14,11 +14,10 @@ export default {
   }
 }
 
-let kikou = "test";
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Pacifico|VT323|Quicksand|Inconsolata|Ubuntu|Galada|Lobster');
+@import url('https://fonts.googleapis.com/css?family=Pacifico|VT323|Quicksand|Inconsolata|Ubuntu|Galada|Lobster|Noto Sans Egyptian Hieroglyphs');
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
