@@ -14,7 +14,6 @@ export default {
   }
 }
 
-let kikou = "test";
 </script>
 
 <style>
