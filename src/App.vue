@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Pacifico|VT323|Quicksand|Inconsolata|Ubuntu|Galada|Lobster|Noto Sans Egyptian Hieroglyphs');
+@import url('https://fonts.googleapis.com/css?family=Pacifico|VT323|Quicksand|Inconsolata|Ubuntu|Galada|Lobster');
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
