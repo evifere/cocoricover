@@ -205,7 +205,7 @@ export default {
     let _self = this;
 
     let baseUrl =
-      process.env.NODE_ENV === "production "
+      process.env.NODE_ENV === "production"
         ? "http://evifere.lescigales.org/cocoricover/animals/"
         : "./animals/";
 
@@ -412,7 +412,7 @@ export default {
     logo() {
       let _self = this;
       let baseUrl =
-        process.env.NODE_ENV === "production "
+        process.env.NODE_ENV === "production"
           ? "http://evifere.lescigales.org/cocoricover/animals/"
           : "./animals/";
 
