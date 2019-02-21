@@ -56,6 +56,14 @@
                 <template slot="prepend">Logo perso</template>
               </el-input>
             </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="18">
+              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="newImageUrl">
+                <template slot="prepend">Ajouter une image</template>
+              </el-input>
+              </el-col>
+              <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addImage" circle size="small"></el-button>
           </el-row>
           <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
@@ -166,6 +174,7 @@ export default {
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
       externalLogo: "",
+      newImageUrl:"",
       mainColor: "darkmagenta",
       logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
@@ -395,7 +404,14 @@ export default {
       object.sendBackwards(true);
 
       this.$canvas.requestRenderAll();
-    }
+    },
+    addImage(){
+      let _self = this;
+      fabric.Image.fromURL(this.newImageUrl, function(oImg) {
+        oImg.set("left", 125).set("top", 100);
+        _self.$canvas.add(oImg);
+      },{ crossOrigin: "Anonymous" });
+      }
   },
   watch: {
     "currentTextObjectConfig.fontFamily"() {
