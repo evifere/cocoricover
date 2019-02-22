@@ -3,8 +3,8 @@
   <el-aside width="508px" v-show="!isEditable">
         <img  width="500" height="700" ref="preview" src="" />
   </el-aside>
-  <el-aside width="525px" v-show="isEditable">
-        <canvas id='background'></canvas>
+  <el-aside width="525px" v-show="isEditable" >
+        <canvas  id='background' tabindex="0" ></canvas>
   </el-aside>
   <el-container>
     <el-header>Cocoricorly générateur de couverture parodique !</el-header>
@@ -193,7 +193,9 @@ export default {
       height: 700,
       backgroundColor: "white"
     });
-
+console.log(this.$canvas);
+    this.$canvas.upperCanvasEl.setAttribute("tabindex", "1");
+    this.$canvas.upperCanvasEl.addEventListener('keydown',this.onKeyDown);
     //heading line
     this.$headline = this.makeLine([5, 0, 495, 0], this.mainColor);
     this.$canvas.add(this.$headline);
@@ -333,6 +335,19 @@ export default {
         this.currentTextObjectConfig = currentObject.toObject();
       }
     },
+    onKeyDown(evt){
+      if (evt.code ==='Backspace' || evt.code ==='Delete'){
+          this.deleteActiveObject();
+      }
+    },
+
+    deleteActiveObject(){
+    var object = this.$canvas.getActiveObject();
+      if (!object) {
+        return;
+      }
+     this.$canvas.remove(object);
+    },
 
     setActiveProp(name, value) {
       var object = this.$canvas.getActiveObject();
@@ -408,10 +423,8 @@ export default {
     addImage(){
       let _self = this;
       fabric.Image.fromURL(this.newImageUrl, function(oImg) {
-        oImg.set("left", 125).set("top", 100);
-        _self.$canvas.add(oImg);
-      },{ crossOrigin: "Anonymous" });
-      }
+        oImg.set("left", 125).set("top", 100);_self.$canvas.add(oImg);},{ crossOrigin: "Anonymous" });
+    }
   },
   watch: {
     "currentTextObjectConfig.fontFamily"() {
