@@ -193,7 +193,7 @@ export default {
       height: 700,
       backgroundColor: "white"
     });
-console.log(this.$canvas);
+
     this.$canvas.upperCanvasEl.setAttribute("tabindex", "1");
     this.$canvas.upperCanvasEl.addEventListener('keydown',this.onKeyDown);
     //heading line
