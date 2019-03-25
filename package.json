@@ -9,17 +9,17 @@
   },
   "dependencies": {
     "element-theme": "^2.0.1",
-    "element-ui": "^2.5.4",
-    "vue": "^2.6.6"
+    "element-ui": "^2.6.3",
+    "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.1",
-    "@vue/cli-plugin-eslint": "^3.4.1",
-    "@vue/cli-service": "^3.4.1",
-    "element-theme-chalk": "^2.5.4",
-    "fabric": "^2.6.0",
+    "@vue/cli-plugin-babel": "^3.5.1",
+    "@vue/cli-plugin-eslint": "^3.5.1",
+    "@vue/cli-service": "^3.5.1",
+    "element-theme-chalk": "^2.6.3",
+    "fabric": "^2.7.0",
     "fontfaceobserver": "^2.1.0",
-    "vue-template-compiler": "^2.6.6"
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
