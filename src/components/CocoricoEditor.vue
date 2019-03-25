@@ -176,7 +176,7 @@ export default {
       },
       isTextSelected: true,
       topText: "Taupe texte izi year !",
-      newText: "Happy new text !",
+      newText: "New kid on the text !",
       guideText: "Le guide expéditif.",
       guideTextBottom: "100 % pas remboursé !",
       titleText: "Le Ch'titre qui l'es bien là",
