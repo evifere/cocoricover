@@ -65,6 +65,14 @@
               </el-col>
               <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addImage" circle size="small"></el-button>
           </el-row>
+            <el-row>
+              <el-col :span="4" class="col-label col-text-left">
+              Ajouter block texte :
+              </el-col>
+              <el-col :span="1">
+               <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addTextBlock" circle size="small"></el-button>
+              </el-col>
+            </el-row>
           <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
              <el-col :span="16">          
@@ -168,6 +176,7 @@ export default {
       },
       isTextSelected: true,
       topText: "Taupe texte izi year !",
+      newText: "New kid on the text !",
       guideText: "Le guide expéditif.",
       guideTextBottom: "100 % pas remboursé !",
       titleText: "Le Ch'titre qui l'es bien là",
@@ -424,6 +433,19 @@ export default {
       let _self = this;
       fabric.Image.fromURL(this.newImageUrl, function(oImg) {
         oImg.set("left", 125).set("top", 100);_self.$canvas.add(oImg);},{ crossOrigin: "Anonymous" });
+    },
+    addTextBlock(){
+      let newTextbox = new fabric.Textbox(this.newText, {
+        left: 50,
+        top: 400,
+        width: 400,
+        fontSize: 30,
+        fontStyle: "italic",
+        borderColor: "green",
+        textAlign: "center"
+      });
+
+      this.$canvas.add(newTextbox).setActiveObject(newText);
     }
   },
   watch: {
