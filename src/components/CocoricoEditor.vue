@@ -141,7 +141,7 @@
           </el-row>
       </el-col>
     </el-main>
-    <el-footer align="right">copyright 2018 @cocoricorly </el-footer>
+    <el-footer align="right">copyright 2018-2019 @cocoricorly v{{version}}</el-footer>
   </el-container>
 </el-container>
 
@@ -149,6 +149,7 @@
 
 <script scoped>
 import { fabric } from "fabric";
+import {version} from '../../package.json';
 
 let FontFaceObserver = require("fontfaceobserver");
 
@@ -192,7 +193,8 @@ export default {
       alignments: ["Left", "Center", "Justify", "Right"],
       isEditable: true,
       fontStyles: ["", "normal", "italic", "oblique"],
-      fontWeights: ["bold", "normal", 400, 600, 800]
+      fontWeights: ["bold", "normal", 400, 600, 800],
+      version:version
     };
   },
 
