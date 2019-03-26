@@ -15,7 +15,7 @@
             <el-col :span="4" class="col-label col-text-center"><label>Mais que fais la police !</label></el-col>
             <el-col :span="4">
               <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
-                <el-option v-for="font in fonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
+                <el-option v-for="font in allFonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
               </el-select>
             </el-col>        
             <el-col :span="4" class="col-label col-text-center"><label>Gérer les kilos en trop</label></el-col>
@@ -446,6 +446,11 @@ export default {
       });
 
       this.$canvas.add(newTextbox).setActiveObject(newText);
+    }
+  },
+  computed:{
+    allFonts(){
+     return this.fonts.concat(this.gofonts); 
     }
   },
   watch: {
