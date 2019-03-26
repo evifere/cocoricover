@@ -28,6 +28,7 @@ the build will be generated in dist folder
 
 | Version | Description |
 | ------------- |:-------------:|
+| 1.1.3      | add more fonts , github corner and enhance fonts and gofonts configuration|
 | 1.1.2      | add the possibiity to add textblock|
 | 1.1.1      | upgrade dependancies|
 | 1.1.0      | add the possibiity to add image and delete object from canvas|

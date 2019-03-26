@@ -15,7 +15,7 @@
             <el-col :span="4" class="col-label col-text-center"><label>Mais que fais la police !</label></el-col>
             <el-col :span="4">
               <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
-                <el-option v-for="font in fonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
+                <el-option v-for="font in allFonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
               </el-select>
             </el-col>        
             <el-col :span="4" class="col-label col-text-center"><label>Gérer les kilos en trop</label></el-col>
@@ -141,7 +141,7 @@
           </el-row>
       </el-col>
     </el-main>
-    <el-footer align="right">copyright 2018 @cocoricorly </el-footer>
+    <el-footer align="right">copyright 2018-2019 @cocoricorly v{{version}}</el-footer>
   </el-container>
 </el-container>
 
@@ -149,6 +149,7 @@
 
 <script scoped>
 import { fabric } from "fabric";
+import {version} from '../../package.json';
 
 let FontFaceObserver = require("fontfaceobserver");
 
@@ -192,7 +193,8 @@ export default {
       alignments: ["Left", "Center", "Justify", "Right"],
       isEditable: true,
       fontStyles: ["", "normal", "italic", "oblique"],
-      fontWeights: ["bold", "normal", 400, 600, 800]
+      fontWeights: ["bold", "normal", 400, 600, 800],
+      version:version
     };
   },
 
@@ -446,6 +448,11 @@ export default {
       });
 
       this.$canvas.add(newTextbox).setActiveObject(newText);
+    }
+  },
+  computed:{
+    allFonts(){
+     return this.fonts.concat(this.gofonts); 
     }
   },
   watch: {
