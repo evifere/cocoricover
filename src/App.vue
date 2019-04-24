@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Pacifico|VT323|Quicksand|Inconsolata|Ubuntu|Galada|Lobster|Anton|Karla|Righteous|Permanent+Marker|Satisfy|Kaushan+Script|Luckiest+Guy|Alfa+Slab+One|Bungee+Shade|Kumar+One|Galada|Monoton|Rye|Spicy+Rice');
+@import url('https://fonts.googleapis.com/css?family=Pacifico|VT323|Quicksand|Inconsolata|Ubuntu|Lobster|Anton|Karla|Righteous|Permanent+Marker|Satisfy|Kaushan+Script|Luckiest+Guy|Alfa+Slab+One|Bungee+Shade|Kumar+One|Galada|Monoton|Rye|Spicy+Rice');
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
