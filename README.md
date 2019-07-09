@@ -28,6 +28,7 @@ the build will be generated in dist folder
 
 | Version | Description |
 | ------------- |:-------------:|
+| 1.1.4      | add star wars front from https://fr.fonts2u.com/starwars.police?charmap=2 |
 | 1.1.3      | add more fonts , github corner and enhance fonts and gofonts configuration|
 | 1.1.2      | add the possibiity to add textblock|
 | 1.1.1      | upgrade dependancies|
