@@ -4,7 +4,7 @@
         <img  width="500" height="700" ref="preview" src="" />
   </el-aside>
   <el-aside width="525px" v-show="isEditable" >
-      <emoji-picker @emoji="insertEmoji" :search="search">
+      <emoji-picker @emoji="insertEmoji" :search="search" v-show="isTextSelected">
                   <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
                      <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0 0h24v24H0z" fill="none"/>
@@ -613,7 +613,7 @@ text-align:center;
 
 .emoji-invoker {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   top: 4.5rem;
   left:29.5rem;
   width: 1.5rem;
