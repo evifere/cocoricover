@@ -10,7 +10,8 @@
   "dependencies": {
     "element-theme": "^2.0.1",
     "element-ui": "^2.10.1",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-emoji-picker": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.2",
