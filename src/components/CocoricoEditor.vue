@@ -72,6 +72,35 @@
               <el-col :span="1">
                <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addTextBlock" circle size="small"></el-button>
               </el-col>
+              <el-col :span="5">
+                <textarea v-model="input"></textarea>
+
+                <emoji-picker @emoji="insertEmoji" :search="search">
+                  <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
+                    <button type="button">open</button>
+                  </div>
+                  <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+                    <div>
+                      <div>
+                        <input type="text" v-model="search">
+                      </div>
+                      <div>
+                        <div v-for="(emojiGroup, category) in emojis" :key="category">
+                          <h5>{{ category }}</h5>
+                          <div>
+                            <span
+                              v-for="(emoji, emojiName) in emojiGroup"
+                              :key="emojiName"
+                              @click="insertEmoji(emoji)"
+                              :title="emojiName"
+                            >{{ emoji }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </emoji-picker>
+              </el-col>
             </el-row>
           <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
@@ -152,15 +181,21 @@ import { fabric } from "fabric";
 import {version} from '../../package.json';
 
 let FontFaceObserver = require("fontfaceobserver");
+import EmojiPicker from 'vue-emoji-picker';
 
 export default {
   name: "CocoricoEditor",
+  components: {
+    EmojiPicker,
+  },
   props: {
     msg: String
   },
 
   data() {
     return {
+      input:'',
+      search:'',
       currentTextObjectConfig: {
         fontFamily: "Times New Roman",
         fontWeight: "normal",
@@ -435,6 +470,12 @@ export default {
       let _self = this;
       fabric.Image.fromURL(this.newImageUrl, function(oImg) {
         oImg.set("left", 125).set("top", 100);_self.$canvas.add(oImg);},{ crossOrigin: "Anonymous" });
+    },
+    insertEmoji(emoji) {
+      let object = this.$canvas.getActiveObject();
+      let insertAt = (object.selectionStart > 0) ? object.selectionStart : object._text.length;
+      object.insertChars(emoji,null,insertAt);
+      this.$canvas.requestRenderAll();
     },
     addTextBlock(){
       let newTextbox = new fabric.Textbox(this.newText, {
