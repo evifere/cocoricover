@@ -73,7 +73,7 @@
               <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
                 <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo">
                   <el-row>
-                    <el-col :span="8"><img :src="'animals/'+logo+'.png'" width="24" height="24"></img></el-col>
+                    <el-col :span="8"><img :src="'animals/'+logo+'.png'" width="24" height="24" /></el-col>
                     <el-col :span="8"><span>{{ logo }}</span></el-col>
                   </el-row>
                 </el-option>
@@ -312,7 +312,6 @@ export default {
       fill: "white",
       fontSize: 60,
       fontStyle: "normal",
-      stroke: "#C96B1D"
     });
 
     this.$canvas.add(this.$titleTextbox);
@@ -375,7 +374,8 @@ export default {
     onObjectSelected(evt) {
       let currentObject = this.$canvas.findTarget(evt);
       this.isTextSelected = false;
-      if (!!currentObject) {
+
+      if (!(currentObject === (void 0))) {
         this.isTextSelected = !(currentObject.type === "image");
         this.currentTextObjectConfig = currentObject.toObject();
       }
@@ -422,7 +422,8 @@ export default {
           _self.setActiveProp("fontFamily", font);
         })
         .catch(function(e) {
-          console.log(e);
+          /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
+          console.error(e);
           alert("font loading failed " + font);
         });
     },
@@ -487,7 +488,7 @@ export default {
         textAlign: "center"
       });
 
-      this.$canvas.add(newTextbox).setActiveObject(newText);
+      this.$canvas.add(newTextbox).setActiveObject(newTextbox);
     }
   },
   computed:{
