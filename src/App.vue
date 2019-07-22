@@ -27,18 +27,14 @@
         />
       </svg>
     </a>
-    <CocoricoEditor msg="Welcome to Your Vue.js App" />
+     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import CocoricoEditor from "./components/CocoricoEditor.vue";
 
 export default {
-  name: "app",
-  components: {
-    CocoricoEditor
-  }
+  name: "app"
 };
 </script>
 
