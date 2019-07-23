@@ -6,6 +6,7 @@ import Element from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/fr'
 import App from './App.vue'
 import CocoricoEditor from "./components/CocoricoEditor.vue";
+import CocoricoQotEditor from "./components/CocoricoQotEditor.vue";
 
 Vue.config.productionTip = false
 
@@ -18,7 +19,9 @@ Vue.use(VueRouter);
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/', component: CocoricoEditor },
+  { path: '/', component: CocoricoEditor ,alias: '/cocoricover',name:'cocoricover'},
+  { path: '/cocoriQot', component: CocoricoQotEditor,name:'cocoriQot' },
+
 ]
 
 // 3. Create the router instance and pass the `routes` option
