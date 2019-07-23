@@ -1,7 +1,7 @@
 <template>
 <el-container>
   <el-aside width="508px" v-show="!isEditable">
-        <img  width="500" height="700" ref="preview" src="" />
+        <img  width="500" height="175" ref="preview" src="" />
   </el-aside>
   <el-aside width="525px" v-show="isEditable" >
       <emoji-picker @emoji="insertEmoji" :search="search" v-show="isTextSelected">
@@ -183,7 +183,7 @@ let FontFaceObserver = require("fontfaceobserver");
 import EmojiPicker from 'vue-emoji-picker';
 
 export default {
-  name: "CocoricoEditor",
+  name: "CocoricoQotEditor",
   components: {
     EmojiPicker,
   },
@@ -210,12 +210,8 @@ export default {
         stroke: "#ffffff"
       },
       isTextSelected: true,
-      topText: "Taupe texte izi year !",
-      newText: "New kid on the text !",
-      guideText: "Le guide expéditif.",
-      guideTextBottom: "100 % pas remboursé !",
-      titleText: "Le Ch'titre qui l'es bien là",
-      authorsText: "Danny Boom & @cocoricorly",
+      topText: "“ Je ne fais qu'une chose c'est que je ne fait rien ”",
+      authorsText: "Benny Hillist , philosophe",
       logo: "logo",
       externalLogo: "",
       newImageUrl:"",
@@ -235,7 +231,7 @@ export default {
   mounted() {
     this.$canvas = new fabric.Canvas("background", {
       width: 500,
-      height: 700,
+      height: 175,
       backgroundColor: "white"
     });
 
@@ -247,79 +243,25 @@ export default {
 
     //top text
     let topTextbox = new fabric.Textbox(this.topText, {
-      left: 50,
+      left: 10,
       top: 10,
-      width: 400,
-      fontSize: 20,
+      width: 460,
+      fontSize: 42,
       fontStyle: "italic",
       borderColor: "green",
       textAlign: "center"
     });
 
+    //heading line
+    this.$footline = this.makeLine([100, 140, 400, 140], this.mainColor);
+    this.$canvas.add(this.$footline);
+
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
-    this.currentTextObjectConfig = topTextbox.toObject();
-    let _self = this;
-
-    let baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "http://evifere.lescigales.org/cocoricover/animals/"
-        : "./animals/";
-
-    fabric.Image.fromURL(baseUrl + this.logo + ".png", function(oImg) {
-      oImg.set("left", 125).set("top", 100);
-      _self.$canvas.add(oImg);
-      _self.$coverImg = oImg;
-    });
-
-    //guide text
-    let guideTextbox = new fabric.Textbox(this.guideText, {
-      left: 10,
-      top: 385,
-      width: 490,
-      fontSize: 20,
-      fontStyle: "normal",
-      borderColor: "green",
-      textAlign: "left"
-    });
-
-    this.$canvas.add(guideTextbox);
-
-    //guide text
-    let guideTextboxBottom = new fabric.Textbox(this.guideTextBottom, {
-      left: 10,
-      top: 560,
-      width: 480,
-      fontSize: 20,
-      fontStyle: "bold",
-      borderColor: "green",
-      textAlign: "right",
-      linethrough: true
-    });
-
-    this.$canvas.add(guideTextboxBottom);
-
-    //title text
-    this.$titleTextbox = new fabric.Textbox(this.titleText, {
-      left: 10,
-      top: 410,
-      width: 480,
-      height: 2000,
-      textBackgroundColor: this.mainColor,
-      borderColor: "green",
-      selectionBackgroundColor: "yellow",
-      backgroundColor: this.mainColor,
-      stroke: this.mainColor,
-      fill: "white",
-      fontSize: 60,
-      fontStyle: "normal",
-    });
-
-    this.$canvas.add(this.$titleTextbox);
 
     //title text
     let authorsTextbox = new fabric.Textbox(this.authorsText, {
-      left: 200,
-      top: 670,
+      left: 280,
+      top: 150,
       width: 300,
       borderColor: "green",
       selectionBackgroundColor: "yellow",
@@ -330,9 +272,9 @@ export default {
     this.$canvas.add(authorsTextbox);
 
     //corocico copyright
-    let cocoricoSymbol = new fabric.Text("?", {
+    let cocoricoSymbol = new fabric.Text("💬", {
       left: 70,
-      top: 670,
+      top: 150,
       fontSize: 15,
       fontWeight: "bold"
     });
@@ -340,7 +282,7 @@ export default {
 
     let cocoricopiright = new fabric.Text("CocoricoRLY", {
       left: 10,
-      top: 680,
+      top: 160,
       fontSize: 10,
       fontWeight: "bold"
     });
@@ -355,6 +297,9 @@ export default {
     this.$canvas.on("selection:updated", this.onObjectSelected);
 
     this.saveToPng();
+          
+    this.$canvas.requestRenderAll();
+
   },
 
   methods: {
@@ -538,7 +483,7 @@ export default {
 
     mainColor: function() {
       this.$headline.set({ fill: this.mainColor, stroke: this.mainColor });
-
+      this.$footline.set({ fill: this.mainColor, stroke: this.mainColor });
       this.$titleTextbox.set({
         textBackgroundColor: this.mainColor,
         backgroundColor: this.mainColor,

@@ -20,7 +20,7 @@ Vue.use(VueRouter);
 // We'll talk about nested routes later.
 const routes = [
   { path: '/', component: CocoricoEditor ,alias: '/cocoricover',name:'cocoricover'},
-  { path: '/cocoriQot', component: CocoricoQotEditor,name:'cocoriQot' },
+  { path: '/cocoricoQot', component: CocoricoQotEditor,name:'cocoricoQot' },
 
 ]
 

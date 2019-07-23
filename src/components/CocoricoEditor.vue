@@ -35,7 +35,7 @@
         <canvas  id='background' tabindex="0" ></canvas>
   </el-aside>
   <el-container>
-    <el-header>Cocoricorly générateur de couverture parodique ! <el-button @click="$router.push('cocoriQot')">Citation</el-button></el-header>
+    <el-header>Cocoricorly générateur de couverture parodique ! <el-button @click="$router.push('cocoricoQot')">Citation</el-button></el-header>
     <el-main>
         <hr/>
         <el-col class="params-panel">
