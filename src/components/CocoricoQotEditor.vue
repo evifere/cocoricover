@@ -68,19 +68,6 @@
           </el-row>
           <el-row class="empty"></el-row>
           <el-row>
-            <el-col :span="6" class="col-label col-text-left"><label>Un logo logo dans la case avec ma frame !</label></el-col>
-            <el-col :span="6">
-              <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
-                <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo">
-                  <el-row>
-                    <el-col :span="8"><img :src="'animals/'+logo+'.png'" width="24" height="24" /></el-col>
-                    <el-col :span="8"><span>{{ logo }}</span></el-col>
-                  </el-row>
-                </el-option>
-              </el-select>
-            </el-col>
-            </el-row>
-          <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
              <el-col :span="16">          
               <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isEditable">
@@ -181,11 +168,7 @@ export default {
       isTextSelected: true,
       topText: "“ Je ne fais qu'une chose c'est que je ne fait rien ”",
       authorsText: "Benny Hillist , philosophe",
-      logo: "logo",
-      externalLogo: "",
-      newImageUrl:"",
       mainColor: "darkmagenta",
-      logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
       fonts: require("./fonts.json"),
       gofonts: require("./gofonts.json"),
@@ -226,6 +209,7 @@ export default {
     this.$canvas.add(this.$footline);
 
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
+    this.currentTextObjectConfig = topTextbox.toObject();
 
     //title text
     let authorsTextbox = new fabric.Textbox(this.authorsText, {
@@ -409,7 +393,7 @@ canvas,
 .el-aside {
   overflow: hidden;
   min-height: 706px;
-  margin-top: 18rem;
+  margin-top: 14rem;
 }
 
 .el-header {
@@ -460,7 +444,7 @@ text-align:center;
 .emoji-invoker {
   position: absolute;
   z-index: 1;
-  top: 4.5rem;
+  top: 18.5rem;
   left:29.5rem;
   width: 1.5rem;
   height: 1.5rem;
