@@ -28,6 +28,7 @@ the build will be generated in dist folder
 
 | Version | Description |
 | ------------- |:-------------:|
+| 1.2.0      | add cocoriQot page generator
 | 1.1.5      |integration of an emoji picker https://github.com/DCzajkowski/vue-emoji-picker|
 | 1.1.4      | add star wars front from https://fr.fonts2u.com/starwars.police?charmap=2 |
 | 1.1.3      | add more fonts , github corner and enhance fonts and gofonts configuration|

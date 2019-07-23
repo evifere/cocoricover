@@ -1,7 +1,7 @@
 <template>
 <el-container>
   <el-aside width="508px" v-show="!isEditable">
-        <img  width="500" height="700" ref="preview" src="" />
+        <img  width="500" height="175" ref="preview" src="" />
   </el-aside>
   <el-aside width="525px" v-show="isEditable" >
       <emoji-picker @emoji="insertEmoji" :search="search" v-show="isTextSelected">
@@ -35,7 +35,7 @@
         <canvas  id='background' tabindex="0" ></canvas>
   </el-aside>
   <el-container>
-    <el-header>Cocoricorly générateur de couverture parodique ! <el-button @click="$router.push('cocoricoQot')">Citation</el-button></el-header>
+    <el-header>CocoriQot générateur de citation parodique ! <el-button @click="$router.push('cocoricover')">Couverture</el-button></el-header>
     <el-main>
         <hr/>
         <el-col class="params-panel">
@@ -67,40 +67,6 @@
             </el-col>
           </el-row>
           <el-row class="empty"></el-row>
-          <el-row>
-            <el-col :span="6" class="col-label col-text-left"><label>Un logo logo dans la case avec ma frame !</label></el-col>
-            <el-col :span="6">
-              <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
-                <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo">
-                  <el-row>
-                    <el-col :span="8"><img :src="'animals/'+logo+'.png'" width="24" height="24" /></el-col>
-                    <el-col :span="8"><span>{{ logo }}</span></el-col>
-                  </el-row>
-                </el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="12">
-              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="externalLogo">
-                <template slot="prepend">Logo perso</template>
-              </el-input>
-            </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="18">
-              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="newImageUrl">
-                <template slot="prepend">Ajouter une image</template>
-              </el-input>
-              </el-col>
-              <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addImage" circle size="small"></el-button>
-          </el-row>
-            <el-row>
-              <el-col :span="4" class="col-label col-text-left">
-              Ajouter block texte :
-              </el-col>
-              <el-col :span="1">
-               <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addTextBlock" circle size="small"></el-button>
-              </el-col>
-            </el-row>
           <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
              <el-col :span="16">          
@@ -149,16 +115,6 @@
              <el-col :span="8" class="col-label col-text-left"><label>Line height</label></el-col>
              <el-col :span="16"><el-slider v-model="currentTextObjectConfig.lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
           </el-row>
-
-          <el-row  type="flex" justify="center">
-            <el-col :span="8">
-             <el-button type="primary"  v-bind:disabled="!isEditable" v-on:click="moveForward">Si tu avances</el-button>
-            </el-col>
-            <el-col :span="4" class="col-label col-text-center" >et</el-col>
-            <el-col :span="8">
-             <el-button type="primary" v-bind:disabled="!isEditable"  v-on:click="moveBackward">tu recules !</el-button>
-            </el-col>
-          </el-row>
           <el-row>
             <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
           </el-row>
@@ -183,7 +139,7 @@ let FontFaceObserver = require("fontfaceobserver");
 import EmojiPicker from 'vue-emoji-picker';
 
 export default {
-  name: "CocoricoEditor",
+  name: "CocoricoQotEditor",
   components: {
     EmojiPicker,
   },
@@ -210,17 +166,9 @@ export default {
         stroke: "#ffffff"
       },
       isTextSelected: true,
-      topText: "Taupe texte izi year !",
-      newText: "New kid on the text !",
-      guideText: "Le guide expéditif.",
-      guideTextBottom: "100 % pas remboursé !",
-      titleText: "Le Ch'titre qui l'es bien là",
-      authorsText: "Danny Boom & @cocoricorly",
-      logo: "logo",
-      externalLogo: "",
-      newImageUrl:"",
+      topText: "“ Je ne fais qu'une chose c'est que je ne fait rien ”",
+      authorsText: "Benny Hillist , philosophe",
       mainColor: "darkmagenta",
-      logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
       fonts: require("./fonts.json"),
       gofonts: require("./gofonts.json"),
@@ -235,7 +183,7 @@ export default {
   mounted() {
     this.$canvas = new fabric.Canvas("background", {
       width: 500,
-      height: 700,
+      height: 175,
       backgroundColor: "white"
     });
 
@@ -247,79 +195,26 @@ export default {
 
     //top text
     let topTextbox = new fabric.Textbox(this.topText, {
-      left: 50,
+      left: 10,
       top: 10,
-      width: 400,
-      fontSize: 20,
+      width: 460,
+      fontSize: 42,
       fontStyle: "italic",
       borderColor: "green",
       textAlign: "center"
     });
 
+    //heading line
+    this.$footline = this.makeLine([100, 140, 400, 140], this.mainColor);
+    this.$canvas.add(this.$footline);
+
     this.$canvas.add(topTextbox).setActiveObject(topTextbox);
     this.currentTextObjectConfig = topTextbox.toObject();
-    let _self = this;
-
-    let baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "http://evifere.lescigales.org/cocoricover/animals/"
-        : "./animals/";
-
-    fabric.Image.fromURL(baseUrl + this.logo + ".png", function(oImg) {
-      oImg.set("left", 125).set("top", 100);
-      _self.$canvas.add(oImg);
-      _self.$coverImg = oImg;
-    });
-
-    //guide text
-    let guideTextbox = new fabric.Textbox(this.guideText, {
-      left: 10,
-      top: 385,
-      width: 490,
-      fontSize: 20,
-      fontStyle: "normal",
-      borderColor: "green",
-      textAlign: "left"
-    });
-
-    this.$canvas.add(guideTextbox);
-
-    //guide text
-    let guideTextboxBottom = new fabric.Textbox(this.guideTextBottom, {
-      left: 10,
-      top: 560,
-      width: 480,
-      fontSize: 20,
-      fontStyle: "bold",
-      borderColor: "green",
-      textAlign: "right",
-      linethrough: true
-    });
-
-    this.$canvas.add(guideTextboxBottom);
-
-    //title text
-    this.$titleTextbox = new fabric.Textbox(this.titleText, {
-      left: 10,
-      top: 410,
-      width: 480,
-      height: 2000,
-      textBackgroundColor: this.mainColor,
-      borderColor: "green",
-      selectionBackgroundColor: "yellow",
-      backgroundColor: this.mainColor,
-      stroke: this.mainColor,
-      fill: "white",
-      fontSize: 60,
-      fontStyle: "normal",
-    });
-
-    this.$canvas.add(this.$titleTextbox);
 
     //title text
     let authorsTextbox = new fabric.Textbox(this.authorsText, {
-      left: 200,
-      top: 670,
+      left: 280,
+      top: 150,
       width: 300,
       borderColor: "green",
       selectionBackgroundColor: "yellow",
@@ -330,9 +225,9 @@ export default {
     this.$canvas.add(authorsTextbox);
 
     //corocico copyright
-    let cocoricoSymbol = new fabric.Text("?", {
+    let cocoricoSymbol = new fabric.Text("💬", {
       left: 70,
-      top: 670,
+      top: 150,
       fontSize: 15,
       fontWeight: "bold"
     });
@@ -340,7 +235,7 @@ export default {
 
     let cocoricopiright = new fabric.Text("CocoricoRLY", {
       left: 10,
-      top: 680,
+      top: 160,
       fontSize: 10,
       fontWeight: "bold"
     });
@@ -355,6 +250,9 @@ export default {
     this.$canvas.on("selection:updated", this.onObjectSelected);
 
     this.saveToPng();
+          
+    this.$canvas.requestRenderAll();
+
   },
 
   methods: {
@@ -447,48 +345,12 @@ export default {
         originY: "top"
       });
     },
-
-    moveForward() {
-      let object = this.$canvas.getActiveObject();
-      if (!object) {
-        return;
-      }
-      object.bringForward(true);
-
-      this.$canvas.requestRenderAll();
-    },
-    moveBackward() {
-      let object = this.$canvas.getActiveObject();
-      if (!object) {
-        return;
-      }
-      object.sendBackwards(true);
-
-      this.$canvas.requestRenderAll();
-    },
-    addImage(){
-      let _self = this;
-      fabric.Image.fromURL(this.newImageUrl, function(oImg) {
-        oImg.set("left", 125).set("top", 100);_self.$canvas.add(oImg);},{ crossOrigin: "Anonymous" });
-    },
+    
     insertEmoji(emoji) {
       let object = this.$canvas.getActiveObject();
       let insertAt = (object.selectionStart > 0) ? object.selectionStart : object._text.length;
       object.insertChars(emoji,null,insertAt);
       this.$canvas.requestRenderAll();
-    },
-    addTextBlock(){
-      let newTextbox = new fabric.Textbox(this.newText, {
-        left: 50,
-        top: 400,
-        width: 400,
-        fontSize: 30,
-        fontStyle: "italic",
-        borderColor: "green",
-        textAlign: "center"
-      });
-
-      this.$canvas.add(newTextbox).setActiveObject(newTextbox);
     }
   },
   computed:{
@@ -508,43 +370,9 @@ export default {
       }
     },
 
-    logo() {
-      let _self = this;
-      let baseUrl =
-        process.env.NODE_ENV === "production"
-          ? "http://evifere.lescigales.org/cocoricover/animals/"
-          : "./animals/";
-
-      this.$coverImg.setSrc(baseUrl + this.logo + ".png", function(oImg) {
-        oImg.set("left", 125).set("top", 100);
-        _self.$canvas.add(oImg);
-        _self.$coverImg = oImg;
-      });
-    },
-
-    externalLogo() {
-      let _self = this;
-
-      this.$coverImg.setSrc(
-        this.externalLogo,
-        function(oImg) {
-          oImg.set("left", 125).set("top", 100);
-          _self.$canvas.add(oImg);
-          _self.$coverImg = oImg;
-        },
-        { crossOrigin: "Anonymous" }
-      );
-    },
-
     mainColor: function() {
       this.$headline.set({ fill: this.mainColor, stroke: this.mainColor });
-
-      this.$titleTextbox.set({
-        textBackgroundColor: this.mainColor,
-        backgroundColor: this.mainColor,
-        stroke: this.mainColor
-      });
-
+      this.$footline.set({ fill: this.mainColor, stroke: this.mainColor });
       this.$canvas.requestRenderAll();
     }
   }
@@ -565,6 +393,7 @@ canvas,
 .el-aside {
   overflow: hidden;
   min-height: 706px;
+  margin-top: 14rem;
 }
 
 .el-header {
@@ -615,7 +444,7 @@ text-align:center;
 .emoji-invoker {
   position: absolute;
   z-index: 1;
-  top: 4.5rem;
+  top: 18.5rem;
   left:29.5rem;
   width: 1.5rem;
   height: 1.5rem;
