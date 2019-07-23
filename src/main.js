@@ -5,8 +5,9 @@ import '../theme/display.css'
 import Element from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/fr'
 import App from './App.vue'
-import CocoricoEditor from "./components/CocoricoEditor.vue";
-import CocoricoQotEditor from "./components/CocoricoQotEditor.vue";
+
+const CocoricoEditor = () => import(/* webpackChunkName: "cocoricover" */ './components/CocoricoEditor.vue')
+const CocoricoQotEditor = () => import(/* webpackChunkName: "cocoricoqot" */ './components/CocoricoQotEditor.vue')
 
 Vue.config.productionTip = false
 

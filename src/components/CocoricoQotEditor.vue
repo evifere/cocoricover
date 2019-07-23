@@ -504,6 +504,7 @@ canvas,
 .el-aside {
   overflow: hidden;
   min-height: 706px;
+  margin-top: 18rem;
 }
 
 .el-header {
