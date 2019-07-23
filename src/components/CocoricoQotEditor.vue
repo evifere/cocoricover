@@ -484,12 +484,6 @@ export default {
     mainColor: function() {
       this.$headline.set({ fill: this.mainColor, stroke: this.mainColor });
       this.$footline.set({ fill: this.mainColor, stroke: this.mainColor });
-      this.$titleTextbox.set({
-        textBackgroundColor: this.mainColor,
-        backgroundColor: this.mainColor,
-        stroke: this.mainColor
-      });
-
       this.$canvas.requestRenderAll();
     }
   }
