@@ -79,27 +79,6 @@
                 </el-option>
               </el-select>
             </el-col>
-            <el-col :span="12">
-              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="externalLogo">
-                <template slot="prepend">Logo perso</template>
-              </el-input>
-            </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="18">
-              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="newImageUrl">
-                <template slot="prepend">Ajouter une image</template>
-              </el-input>
-              </el-col>
-              <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addImage" circle size="small"></el-button>
-          </el-row>
-            <el-row>
-              <el-col :span="4" class="col-label col-text-left">
-              Ajouter block texte :
-              </el-col>
-              <el-col :span="1">
-               <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addTextBlock" circle size="small"></el-button>
-              </el-col>
             </el-row>
           <el-row>
             <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
@@ -148,16 +127,6 @@
           <el-row>
              <el-col :span="8" class="col-label col-text-left"><label>Line height</label></el-col>
              <el-col :span="16"><el-slider v-model="currentTextObjectConfig.lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
-          </el-row>
-
-          <el-row  type="flex" justify="center">
-            <el-col :span="8">
-             <el-button type="primary"  v-bind:disabled="!isEditable" v-on:click="moveForward">Si tu avances</el-button>
-            </el-col>
-            <el-col :span="4" class="col-label col-text-center" >et</el-col>
-            <el-col :span="8">
-             <el-button type="primary" v-bind:disabled="!isEditable"  v-on:click="moveBackward">tu recules !</el-button>
-            </el-col>
           </el-row>
           <el-row>
             <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
@@ -392,48 +361,12 @@ export default {
         originY: "top"
       });
     },
-
-    moveForward() {
-      let object = this.$canvas.getActiveObject();
-      if (!object) {
-        return;
-      }
-      object.bringForward(true);
-
-      this.$canvas.requestRenderAll();
-    },
-    moveBackward() {
-      let object = this.$canvas.getActiveObject();
-      if (!object) {
-        return;
-      }
-      object.sendBackwards(true);
-
-      this.$canvas.requestRenderAll();
-    },
-    addImage(){
-      let _self = this;
-      fabric.Image.fromURL(this.newImageUrl, function(oImg) {
-        oImg.set("left", 125).set("top", 100);_self.$canvas.add(oImg);},{ crossOrigin: "Anonymous" });
-    },
+    
     insertEmoji(emoji) {
       let object = this.$canvas.getActiveObject();
       let insertAt = (object.selectionStart > 0) ? object.selectionStart : object._text.length;
       object.insertChars(emoji,null,insertAt);
       this.$canvas.requestRenderAll();
-    },
-    addTextBlock(){
-      let newTextbox = new fabric.Textbox(this.newText, {
-        left: 50,
-        top: 400,
-        width: 400,
-        fontSize: 30,
-        fontStyle: "italic",
-        borderColor: "green",
-        textAlign: "center"
-      });
-
-      this.$canvas.add(newTextbox).setActiveObject(newTextbox);
     }
   },
   computed:{
@@ -451,34 +384,6 @@ export default {
           this.currentTextObjectConfig.fontFamily
         );
       }
-    },
-
-    logo() {
-      let _self = this;
-      let baseUrl =
-        process.env.NODE_ENV === "production"
-          ? "http://evifere.lescigales.org/cocoricover/animals/"
-          : "./animals/";
-
-      this.$coverImg.setSrc(baseUrl + this.logo + ".png", function(oImg) {
-        oImg.set("left", 125).set("top", 100);
-        _self.$canvas.add(oImg);
-        _self.$coverImg = oImg;
-      });
-    },
-
-    externalLogo() {
-      let _self = this;
-
-      this.$coverImg.setSrc(
-        this.externalLogo,
-        function(oImg) {
-          oImg.set("left", 125).set("top", 100);
-          _self.$canvas.add(oImg);
-          _self.$coverImg = oImg;
-        },
-        { crossOrigin: "Anonymous" }
-      );
     },
 
     mainColor: function() {
