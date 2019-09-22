@@ -1,65 +1,95 @@
 <template>
-<el-container>
-  <el-aside width="508px" v-show="!isEditable">
-        <img  width="500" height="700" ref="preview" src="" />
-  </el-aside>
-  <el-aside width="525px" v-show="isEditable" >
+  <el-container :style="mainorientation">
+    <el-aside width="508px" v-show="!isEditable">
+      <img width="500" height="700" ref="preview" src />
+    </el-aside>
+    <el-aside width="525px" v-show="isEditable">
       <emoji-picker @emoji="insertEmoji" :search="search" v-show="isTextSelected">
-                  <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
-                     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
-                    </svg>
-                  </div>
-                  <div class="emoji-picker" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-                    <div>
-                      <div>
-                        <input type="text" v-model="search">
-                      </div>
-                      <div>
-                        <div v-for="(emojiGroup, category) in emojis" :key="category">
-                          <h5>{{ category }}</h5>
-                          <div>
-                            <span
-                              v-for="(emoji, emojiName) in emojiGroup"
-                              :key="emojiName"
-                              @click="insertEmoji(emoji)"
-                              :title="emojiName"
-                            >{{ emoji }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-        </emoji-picker>
-        <canvas  id='background' tabindex="0" ></canvas>
-  </el-aside>
-  <el-container>
-    <el-header>Cocoricorly générateur de couverture parodique ! <el-button @click="$router.push('cocoricoQot')">Citation</el-button></el-header>
-    <el-main>
-        <hr/>
+        <div
+          class="emoji-invoker"
+          slot="emoji-invoker"
+          slot-scope="{ events: { click: clickEvent } }"
+          @click.stop="clickEvent"
+        >
+          <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"
+            />
+          </svg>
+        </div>
+        <div class="emoji-picker" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+          <div>
+            <div>
+              <input type="text" v-model="search" />
+            </div>
+            <div>
+              <div v-for="(emojiGroup, category) in emojis" :key="category">
+                <h5>{{ category }}</h5>
+                <div>
+                  <span
+                    v-for="(emoji, emojiName) in emojiGroup"
+                    :key="emojiName"
+                    @click="insertEmoji(emoji)"
+                    :title="emojiName"
+                  >{{ emoji }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </emoji-picker>
+      <canvas id="background" tabindex="0"></canvas>
+    </el-aside>
+    <el-container style="min-width: 500px;">
+      <el-header>
+        Cocoricorly générateur de couverture parodique !
+        <el-button @click="$router.push('cocoricoQot')">Citation</el-button>
+      </el-header>
+      <el-main>
+        <hr />
         <el-col class="params-panel">
           <el-row>
-            <el-col :span="4" class="col-label col-text-center"><label>Mais que fais la police !</label></el-col>
+            <el-col :span="4" class="col-label col-text-center">
+              <label>Mais que fais la police !</label>
+            </el-col>
             <el-col :span="4">
-              <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
-                <el-option v-for="font in allFonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
+              <el-select
+                v-model="currentTextObjectConfig.fontFamily"
+                placeholder="Mais que fais la police ?"
+                v-bind:disabled="!isTextSelected || !isEditable"
+              >
+                <el-option v-for="font in allFonts" :key="font" :label="font" :value="font">
+                  <span :style="'font-family:'+font">{{ font }}</span>
+                </el-option>
               </el-select>
-            </el-col>        
-            <el-col :span="4" class="col-label col-text-center"><label>Gérer les kilos en trop</label></el-col>
+            </el-col>
+            <el-col :span="4" class="col-label col-text-center">
+              <label>Gérer les kilos en trop</label>
+            </el-col>
             <el-col :span="4">
-              <el-select v-model="currentTextObjectConfig.fontWeight" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
+              <el-select
+                v-model="currentTextObjectConfig.fontWeight"
+                placeholder="font weight"
+                v-bind:disabled="!isTextSelected || !isEditable"
+              >
                 <el-option v-for="font in fontWeights" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>
-            <el-col :span="4" class="col-label col-text-center"><label>Avoir du style</label></el-col>
+            <el-col :span="4" class="col-label col-text-center">
+              <label>Avoir du style</label>
+            </el-col>
             <el-col :span="4">
-              <el-select v-model="currentTextObjectConfig.fontStyle" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
+              <el-select
+                v-model="currentTextObjectConfig.fontStyle"
+                placeholder="font weight"
+                v-bind:disabled="!isTextSelected || !isEditable"
+              >
                 <el-option v-for="font in fontStyles" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>
           </el-row>
-          <el-row type="flex" justify="center">            
+          <el-row type="flex" justify="center">
             <el-col :span="10">
               <el-checkbox v-model="currentTextObjectConfig.underline">Underline</el-checkbox>
               <el-checkbox v-model="currentTextObjectConfig.linethrough">Line through</el-checkbox>
@@ -68,124 +98,244 @@
           </el-row>
           <el-row class="empty"></el-row>
           <el-row>
-            <el-col :span="6" class="col-label col-text-left"><label>Un logo logo dans la case avec ma frame !</label></el-col>
+            <el-col :span="6" class="col-label col-text-left">
+              <label>Un logo logo dans la case avec ma frame !</label>
+            </el-col>
             <el-col :span="6">
-              <el-select v-model="logo" placeholder="Ton logo c'est ici !" v-bind:disabled="!isEditable">
+              <el-select
+                v-model="logo"
+                placeholder="Ton logo c'est ici !"
+                v-bind:disabled="!isEditable"
+              >
                 <el-option v-for="logo in logos" :key="logo" :label="logo" :value="logo">
                   <el-row>
-                    <el-col :span="8"><img :src="'animals/'+logo+'.png'" width="24" height="24" /></el-col>
-                    <el-col :span="8"><span>{{ logo }}</span></el-col>
+                    <el-col :span="8">
+                      <img :src="'animals/'+logo+'.png'" width="24" height="24" />
+                    </el-col>
+                    <el-col :span="8">
+                      <span>{{ logo }}</span>
+                    </el-col>
                   </el-row>
                 </el-option>
               </el-select>
             </el-col>
             <el-col :span="12">
-              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="externalLogo">
+              <el-input
+                placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png"
+                v-model="externalLogo"
+              >
                 <template slot="prepend">Logo perso</template>
               </el-input>
             </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="18">
-              <el-input placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png" v-model="newImageUrl">
+          </el-row>
+          <el-row>
+            <el-col :span="18">
+              <el-input
+                placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png"
+                v-model="newImageUrl"
+              >
                 <template slot="prepend">Ajouter une image</template>
               </el-input>
-              </el-col>
-              <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addImage" circle size="small"></el-button>
+            </el-col>
+            <el-button
+              icon="el-icon-circle-plus"
+              type="success"
+              v-bind:disabled="!isEditable"
+              v-on:click="addImage"
+              circle
+              size="small"
+            ></el-button>
           </el-row>
-            <el-row>
-              <el-col :span="4" class="col-label col-text-left">
-              Ajouter block texte :
-              </el-col>
-              <el-col :span="1">
-               <el-button icon="el-icon-circle-plus" type="success" v-bind:disabled="!isEditable"  v-on:click="addTextBlock" circle size="small"></el-button>
-              </el-col>
-            </el-row>
           <el-row>
-            <el-col :span="8" class="col-label col-text-left"><label>L'égoût et les couleurs !</label></el-col>
-             <el-col :span="16">          
-              <el-select v-model="mainColor" placeholder="L'égoût et les couleurs !" v-bind:disabled="!isEditable">
-                <el-option v-for="mainColor in mainColors" :key="mainColor" :label="mainColor" :value="mainColor">
-                  <el-row>
-                    <el-col :span="16"><span >{{ mainColor }}</span></el-col> <el-col :span="8"><div class="color-box" :style="'background:'+mainColor+';'"></div></el-col>
-                  </el-row>
-                </el-option>
-              </el-select>
+            <el-col :span="4" class="col-label col-text-left">Ajouter block texte :</el-col>
+            <el-col :span="1">
+              <el-button
+                icon="el-icon-circle-plus"
+                type="success"
+                v-bind:disabled="!isEditable"
+                v-on:click="addTextBlock"
+                circle
+                size="small"
+              ></el-button>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8" class="col-label col-text-left"><label>La couleur de la plume est plus forte que le pêt.</label></el-col>
-             <el-col :span="16">          
-              <el-select v-model="currentTextObjectConfig.fill" placeholder="La couleur du texte" v-bind:disabled="!isTextSelected  || !isEditable">
-                <el-option v-for="fillColor in mainColors" :key="fillColor" :label="fillColor" :value="fillColor">
-                  <el-row>
-                    <el-col :span="16"><span >{{ fillColor }}</span></el-col> <el-col :span="8"><div class="color-box" :style="'background:'+fillColor+';'"></div></el-col>
-                  </el-row>
-                </el-option>
-              </el-select>
+            <el-col :span="8" class="col-label col-text-left">
+              <label>L'égoût et les couleurs !</label>
             </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8" class="col-label col-text-left"><label>Text align</label></el-col>
             <el-col :span="16">
-              <el-select v-model="currentTextObjectConfig.textAlign" placeholder="Alignement" v-bind:disabled="!isTextSelected  || !isEditable">
-                <el-option v-for="alignment in alignments" :key="alignment" :label="alignment" :value="alignment.toLowerCase()"></el-option>
+              <el-select
+                v-model="mainColor"
+                placeholder="L'égoût et les couleurs !"
+                v-bind:disabled="!isEditable"
+              >
+                <el-option
+                  v-for="mainColor in mainColors"
+                  :key="mainColor"
+                  :label="mainColor"
+                  :value="mainColor"
+                >
+                  <el-row>
+                    <el-col :span="16">
+                      <span>{{ mainColor }}</span>
+                    </el-col>
+                    <el-col :span="8">
+                      <div class="color-box" :style="'background:'+mainColor+';'"></div>
+                    </el-col>
+                  </el-row>
+                </el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8" class="col-label col-text-left">
+              <label>La couleur de la plume est plus forte que le pêt.</label>
+            </el-col>
+            <el-col :span="16">
+              <el-select
+                v-model="currentTextObjectConfig.fill"
+                placeholder="La couleur du texte"
+                v-bind:disabled="!isTextSelected  || !isEditable"
+              >
+                <el-option
+                  v-for="fillColor in mainColors"
+                  :key="fillColor"
+                  :label="fillColor"
+                  :value="fillColor"
+                >
+                  <el-row>
+                    <el-col :span="16">
+                      <span>{{ fillColor }}</span>
+                    </el-col>
+                    <el-col :span="8">
+                      <div class="color-box" :style="'background:'+fillColor+';'"></div>
+                    </el-col>
+                  </el-row>
+                </el-option>
+              </el-select>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8" class="col-label col-text-left">
+              <label>Text align</label>
+            </el-col>
+            <el-col :span="16">
+              <el-select
+                v-model="currentTextObjectConfig.textAlign"
+                placeholder="Alignement"
+                v-bind:disabled="!isTextSelected  || !isEditable"
+              >
+                <el-option
+                  v-for="alignment in alignments"
+                  :key="alignment"
+                  :label="alignment"
+                  :value="alignment.toLowerCase()"
+                ></el-option>
               </el-select>
             </el-col>
           </el-row>
           <el-row class="empty"></el-row>
           <el-row>
-             <el-col :span="4" class="col-label col-text-left"><label>Thunder Stroke</label></el-col>
-             <el-col :span="4">
-              <el-color-picker v-model="currentTextObjectConfig.stroke" size="mini" color-format="hex"></el-color-picker>
-             </el-col>
-             <el-col :span="16"><el-slider v-model="currentTextObjectConfig.strokeWidth" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected || !isEditable"></el-slider></el-col>
+            <el-col :span="4" class="col-label col-text-left">
+              <label>Thunder Stroke</label>
+            </el-col>
+            <el-col :span="4">
+              <el-color-picker
+                v-model="currentTextObjectConfig.stroke"
+                size="mini"
+                color-format="hex"
+              ></el-color-picker>
+            </el-col>
+            <el-col :span="16">
+              <el-slider
+                v-model="currentTextObjectConfig.strokeWidth"
+                :min="0"
+                :max="10"
+                :step="0.1"
+                show-input
+                v-bind:disabled="!isTextSelected || !isEditable"
+              ></el-slider>
+            </el-col>
           </el-row>
           <el-row>
-             <el-col :span="8" class="col-label col-text-left"><label>Font size</label></el-col>
-             <el-col :span="16"><el-slider v-model="currentTextObjectConfig.fontSize" :min="1" :max="120" :step="1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
+            <el-col :span="8" class="col-label col-text-left">
+              <label>Font size</label>
+            </el-col>
+            <el-col :span="16">
+              <el-slider
+                v-model="currentTextObjectConfig.fontSize"
+                :min="1"
+                :max="120"
+                :step="1"
+                show-input
+                v-bind:disabled="!isTextSelected  || !isEditable"
+              ></el-slider>
+            </el-col>
           </el-row>
           <el-row>
-             <el-col :span="8" class="col-label col-text-left"><label>Line height</label></el-col>
-             <el-col :span="16"><el-slider v-model="currentTextObjectConfig.lineHeight" :min="0" :max="10" :step="0.1" show-input v-bind:disabled="!isTextSelected  || !isEditable"></el-slider></el-col>
+            <el-col :span="8" class="col-label col-text-left">
+              <label>Line height</label>
+            </el-col>
+            <el-col :span="16">
+              <el-slider
+                v-model="currentTextObjectConfig.lineHeight"
+                :min="0"
+                :max="10"
+                :step="0.1"
+                show-input
+                v-bind:disabled="!isTextSelected  || !isEditable"
+              ></el-slider>
+            </el-col>
           </el-row>
 
-          <el-row  type="flex" justify="center">
+          <el-row type="flex" justify="center">
             <el-col :span="8">
-             <el-button type="primary"  v-bind:disabled="!isEditable" v-on:click="moveForward">Si tu avances</el-button>
+              <el-button
+                type="primary"
+                v-bind:disabled="!isEditable"
+                v-on:click="moveForward"
+              >Si tu avances</el-button>
             </el-col>
-            <el-col :span="4" class="col-label col-text-center" >et</el-col>
+            <el-col :span="4" class="col-label col-text-center">et</el-col>
             <el-col :span="8">
-             <el-button type="primary" v-bind:disabled="!isEditable"  v-on:click="moveBackward">tu recules !</el-button>
+              <el-button
+                type="primary"
+                v-bind:disabled="!isEditable"
+                v-on:click="moveBackward"
+              >tu recules !</el-button>
             </el-col>
           </el-row>
           <el-row>
-            <el-switch v-model="isEditable" active-text="Edition en cours" inactive-text="Mode Preview" v-on:change="saveToPng"> </el-switch>
+            <el-switch
+              v-model="isEditable"
+              active-text="Edition en cours"
+              inactive-text="Mode Preview"
+              v-on:change="saveToPng"
+            ></el-switch>
           </el-row>
-          <hr/>
+          <hr />
           <el-row>
             <a ref="downloadPng" href="#" download="cocoricover.png" v-show="false"></a>
-            <el-button type="primary"  v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
+            <el-button type="primary" v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
           </el-row>
-      </el-col>
-    </el-main>
-    <el-footer align="right">copyright 2018-2019 @cocoricorly v{{version}}</el-footer>
+        </el-col>
+      </el-main>
+      <el-footer align="right">copyright 2018-2019 @cocoricorly v{{version}}</el-footer>
+    </el-container>
   </el-container>
-</el-container>
-
 </template>
 
 <script scoped>
 import { fabric } from "fabric";
-import {version} from '../../package.json';
+import { version } from "../../package.json";
 
 let FontFaceObserver = require("fontfaceobserver");
-import EmojiPicker from 'vue-emoji-picker';
+import EmojiPicker from "vue-emoji-picker";
 
 export default {
   name: "CocoricoEditor",
   components: {
-    EmojiPicker,
+    EmojiPicker
   },
   props: {
     msg: String
@@ -193,8 +343,8 @@ export default {
 
   data() {
     return {
-      input:'',
-      search:'',
+      input: "",
+      search: "",
       currentTextObjectConfig: {
         fontFamily: "Times New Roman",
         fontWeight: "normal",
@@ -218,7 +368,7 @@ export default {
       authorsText: "Danny Boom & @cocoricorly",
       logo: "logo",
       externalLogo: "",
-      newImageUrl:"",
+      newImageUrl: "",
       mainColor: "darkmagenta",
       logos: require("./logos.json"),
       mainColors: require("./cocoricolors.json"),
@@ -228,7 +378,7 @@ export default {
       isEditable: true,
       fontStyles: ["", "normal", "italic", "oblique"],
       fontWeights: ["bold", "normal", 400, 600, 800],
-      version:version
+      version: version
     };
   },
 
@@ -240,7 +390,7 @@ export default {
     });
 
     this.$canvas.upperCanvasEl.setAttribute("tabindex", "1");
-    this.$canvas.upperCanvasEl.addEventListener('keydown',this.onKeyDown);
+    this.$canvas.upperCanvasEl.addEventListener("keydown", this.onKeyDown);
     //heading line
     this.$headline = this.makeLine([5, 0, 495, 0], this.mainColor);
     this.$canvas.add(this.$headline);
@@ -311,7 +461,7 @@ export default {
       stroke: this.mainColor,
       fill: "white",
       fontSize: 60,
-      fontStyle: "normal",
+      fontStyle: "normal"
     });
 
     this.$canvas.add(this.$titleTextbox);
@@ -375,23 +525,23 @@ export default {
       let currentObject = this.$canvas.findTarget(evt);
       this.isTextSelected = false;
 
-      if (!(currentObject === (void 0))) {
+      if (!(currentObject === void 0)) {
         this.isTextSelected = !(currentObject.type === "image");
         this.currentTextObjectConfig = currentObject.toObject();
       }
     },
-    onKeyDown(evt){
-      if (evt.code ==='Backspace' || evt.code ==='Delete'){
-          this.deleteActiveObject();
+    onKeyDown(evt) {
+      if (evt.code === "Backspace" || evt.code === "Delete") {
+        this.deleteActiveObject();
       }
     },
 
-    deleteActiveObject(){
-    var object = this.$canvas.getActiveObject();
+    deleteActiveObject() {
+      var object = this.$canvas.getActiveObject();
       if (!object) {
         return;
       }
-     this.$canvas.remove(object);
+      this.$canvas.remove(object);
     },
 
     setActiveProp(name, value) {
@@ -466,18 +616,25 @@ export default {
 
       this.$canvas.requestRenderAll();
     },
-    addImage(){
+    addImage() {
       let _self = this;
-      fabric.Image.fromURL(this.newImageUrl, function(oImg) {
-        oImg.set("left", 125).set("top", 100);_self.$canvas.add(oImg);},{ crossOrigin: "Anonymous" });
+      fabric.Image.fromURL(
+        this.newImageUrl,
+        function(oImg) {
+          oImg.set("left", 125).set("top", 100);
+          _self.$canvas.add(oImg);
+        },
+        { crossOrigin: "Anonymous" }
+      );
     },
     insertEmoji(emoji) {
       let object = this.$canvas.getActiveObject();
-      let insertAt = (object.selectionStart > 0) ? object.selectionStart : object._text.length;
-      object.insertChars(emoji,null,insertAt);
+      let insertAt =
+        object.selectionStart > 0 ? object.selectionStart : object._text.length;
+      object.insertChars(emoji, null, insertAt);
       this.$canvas.requestRenderAll();
     },
-    addTextBlock(){
+    addTextBlock() {
       let newTextbox = new fabric.Textbox(this.newText, {
         left: 50,
         top: 400,
@@ -491,9 +648,15 @@ export default {
       this.$canvas.add(newTextbox).setActiveObject(newTextbox);
     }
   },
-  computed:{
-    allFonts(){
-     return this.fonts.concat(this.gofonts); 
+  computed: {
+    allFonts() {
+      return this.fonts.concat(this.gofonts);
+    },
+
+    mainorientation() {
+      return this.$mq === "sm"
+        ? { display: "flex", "flex-direction": "column" }
+        : null;
     }
   },
   watch: {
@@ -580,24 +743,26 @@ canvas,
 .params-panel .el-row {
   padding-top: 0.6em;
 }
-.params-panel .el-row .el-col label,.params-panel .el-row .el-col.col-label{
-padding-top: .5em;
+.params-panel .el-row .el-col label,
+.params-panel .el-row .el-col.col-label {
+  padding-top: 0.5em;
 }
 
-.col-text-left{
-text-align:left;
+.col-text-left {
+  text-align: left;
 }
 
-.col-text-center{
-text-align:center;
+.col-text-center {
+  text-align: center;
 }
-.color-box{
-  margin-top:8px;width:16px;height:16px;
+.color-box {
+  margin-top: 8px;
+  width: 16px;
+  height: 16px;
 }
-.el-row.empty{
-  height:2em;
+.el-row.empty {
+  height: 2em;
 }
-
 
 .wrapper {
   position: relative;
@@ -616,7 +781,7 @@ text-align:center;
   position: absolute;
   z-index: 1;
   top: 4.5rem;
-  left:29.5rem;
+  left: 29.5rem;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
@@ -681,5 +846,4 @@ text-align:center;
   background: #ececec;
   cursor: pointer;
 }
-
 </style>

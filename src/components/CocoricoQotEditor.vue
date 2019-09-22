@@ -1,5 +1,5 @@
 <template>
-<el-container>
+<el-container :style="mainorientation">
   <el-aside width="508px" v-show="!isEditable">
         <img  width="500" height="175" ref="preview" src="" />
   </el-aside>
@@ -34,7 +34,7 @@
         </emoji-picker>
         <canvas  id='background' tabindex="0" ></canvas>
   </el-aside>
-  <el-container>
+  <el-container style="min-width: 500px;">
     <el-header>CocoriQot générateur de citation parodique ! <el-button @click="$router.push('cocoricover')">Couverture</el-button></el-header>
     <el-main>
         <hr/>
@@ -356,6 +356,12 @@ export default {
   computed:{
     allFonts(){
      return this.fonts.concat(this.gofonts); 
+    },
+
+    mainorientation() {
+      return this.$mq === "sm"
+        ? { display: "flex", "flex-direction": "column" }
+        : null;
     }
   },
   watch: {
