@@ -50,10 +50,10 @@
         <hr />
         <el-col class="params-panel">
           <el-row>
-            <el-col :span="4" class="col-label col-text-center">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })" class="col-label col-text-center">
               <label>Mais que fais la police !</label>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })">
               <el-select
                 v-model="currentTextObjectConfig.fontFamily"
                 placeholder="Mais que fais la police ?"
@@ -64,10 +64,10 @@
                 </el-option>
               </el-select>
             </el-col>
-            <el-col :span="4" class="col-label col-text-center">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })" class="col-label col-text-center">
               <label>Gérer les kilos en trop</label>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })">
               <el-select
                 v-model="currentTextObjectConfig.fontWeight"
                 placeholder="font weight"
@@ -76,10 +76,10 @@
                 <el-option v-for="font in fontWeights" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>
-            <el-col :span="4" class="col-label col-text-center">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })" class="col-label col-text-center">
               <label>Avoir du style</label>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })">
               <el-select
                 v-model="currentTextObjectConfig.fontStyle"
                 placeholder="font weight"
@@ -90,7 +90,7 @@
             </el-col>
           </el-row>
           <el-row type="flex" justify="center">
-            <el-col :span="10">
+            <el-col :span="$mq | mq({ sm: 24, md: 10, lg: 10 })">
               <el-checkbox v-model="currentTextObjectConfig.underline">Underline</el-checkbox>
               <el-checkbox v-model="currentTextObjectConfig.linethrough">Line through</el-checkbox>
               <el-checkbox v-model="currentTextObjectConfig.overline">Overline</el-checkbox>
@@ -98,10 +98,10 @@
           </el-row>
           <el-row class="empty"></el-row>
           <el-row>
-            <el-col :span="6" class="col-label col-text-left">
+            <el-col :span="$mq | mq({ sm: 12, md: 6, lg: 6 })" class="col-label col-text-left">
               <label>Un logo logo dans la case avec ma frame !</label>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="$mq | mq({ sm: 12, md: 6, lg: 6 })">
               <el-select
                 v-model="logo"
                 placeholder="Ton logo c'est ici !"
@@ -119,7 +119,7 @@
                 </el-option>
               </el-select>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="$mq | mq({ sm: 24, md: 12, lg: 12 })">
               <el-input
                 placeholder="https://openclipart.org/image/300px/svg_to_png/304284/1531920272.png"
                 v-model="externalLogo"
@@ -147,8 +147,8 @@
             ></el-button>
           </el-row>
           <el-row>
-            <el-col :span="4" class="col-label col-text-left">Ajouter block texte :</el-col>
-            <el-col :span="1">
+            <el-col :span="$mq | mq({ sm: 20, md: 4, lg: 4 })" class="col-label col-text-left">Ajouter block texte :</el-col>
+            <el-col :span="$mq | mq({ sm: 4, md: 1, lg: 1 })">
               <el-button
                 icon="el-icon-circle-plus"
                 type="success"
@@ -383,6 +383,8 @@ export default {
   },
 
   mounted() {
+  
+
     this.$canvas = new fabric.Canvas("background", {
       width: 500,
       height: 700,
