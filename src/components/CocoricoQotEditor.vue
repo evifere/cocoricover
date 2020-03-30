@@ -40,27 +40,27 @@
         <hr/>
         <el-col class="params-panel">
           <el-row>
-            <el-col :span="4" class="col-label col-text-center"><label>Mais que fais la police !</label></el-col>
-            <el-col :span="4">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })" class="col-label col-text-center"><label>Mais que fais la police !</label></el-col>
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })">
               <el-select v-model="currentTextObjectConfig.fontFamily" placeholder="Mais que fais la police ?" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in allFonts" :key="font" :label="font" :value="font"><span :style="'font-family:'+font">{{ font }}</span></el-option>
               </el-select>
             </el-col>        
-            <el-col :span="4" class="col-label col-text-center"><label>Gérer les kilos en trop</label></el-col>
-            <el-col :span="4">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })" class="col-label col-text-center"><label>Gérer les kilos en trop</label></el-col>
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })">
               <el-select v-model="currentTextObjectConfig.fontWeight" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fontWeights" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>
-            <el-col :span="4" class="col-label col-text-center"><label>Avoir du style</label></el-col>
-            <el-col :span="4">
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })" class="col-label col-text-center"><label>Avoir du style</label></el-col>
+            <el-col :span="$mq | mq({ sm: 12, md: 4, lg: 4 })">
               <el-select v-model="currentTextObjectConfig.fontStyle" placeholder="font weight" v-bind:disabled="!isTextSelected || !isEditable">
                 <el-option v-for="font in fontStyles" :key="font" :label="font" :value="font"></el-option>
               </el-select>
             </el-col>
           </el-row>
           <el-row type="flex" justify="center">            
-            <el-col :span="10">
+            <el-col :span="$mq | mq({ sm: 24, md: 10, lg: 10 })">
               <el-checkbox v-model="currentTextObjectConfig.underline">Underline</el-checkbox>
               <el-checkbox v-model="currentTextObjectConfig.linethrough">Line through</el-checkbox>
               <el-checkbox v-model="currentTextObjectConfig.overline">Overline</el-checkbox>
@@ -120,7 +120,7 @@
           </el-row>
           <hr/>
           <el-row>
-            <a ref="downloadPng" href="#" download="cocoricover.png" v-show="false"></a>
+            <a ref="downloadPng" href="#" download="cocoriQot.png" v-show="false"></a>
             <el-button type="primary"  v-on:click="downloadPng" icon="el-icon-download">Png</el-button>
           </el-row>
       </el-col>
