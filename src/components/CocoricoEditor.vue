@@ -3,7 +3,7 @@
     <el-aside width="508px" v-show="!isEditable">
       <img width="500" height="700" ref="preview" src />
     </el-aside>
-    <el-aside width="525px" v-show="isEditable">
+    <el-aside :width="$mq | mq({ sm: '425px', md: '525px', lg: '525px' })" v-show="isEditable">
       <emoji-picker @emoji="insertEmoji" :search="search" v-show="isTextSelected">
         <div
           class="emoji-invoker"
@@ -147,7 +147,10 @@
             ></el-button>
           </el-row>
           <el-row>
-            <el-col :span="$mq | mq({ sm: 20, md: 4, lg: 4 })" class="col-label col-text-left">Ajouter block texte :</el-col>
+            <el-col
+              :span="$mq | mq({ sm: 20, md: 4, lg: 4 })"
+              class="col-label col-text-left"
+            >Ajouter block texte :</el-col>
             <el-col :span="$mq | mq({ sm: 4, md: 1, lg: 1 })">
               <el-button
                 icon="el-icon-circle-plus"
@@ -383,8 +386,6 @@ export default {
   },
 
   mounted() {
-  
-
     this.$canvas = new fabric.Canvas("background", {
       width: 500,
       height: 700,
@@ -417,7 +418,12 @@ export default {
         ? "http://evifere.lescigales.org/cocoricover/animals/"
         : "./animals/";
 
+     if( window.location.hostname === "evifere.github.io"){
+        baseUrl = 'https://evifere.github.io/cocoricover/animals/';
+      }
+
     fabric.Image.fromURL(baseUrl + this.logo + ".png", function(oImg) {
+
       oImg.set("left", 125).set("top", 100);
       _self.$canvas.add(oImg);
       _self.$coverImg = oImg;

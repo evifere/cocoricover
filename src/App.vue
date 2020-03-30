@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <a
       href="https://github.com/evifere/cocoricover"
-      class="github-corner"
+      :class="'github-corner hidden-'+$mq"
       aria-label="Pork me on GitHub"
       title="🐽 Pork me on GitHub 🐽"
     >
@@ -59,6 +59,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.github-corner.hidden-sm{
+  display:none;
 }
 .github-corner:hover .octo-arm {
   animation: octocat-wave 560ms ease-in-out;
