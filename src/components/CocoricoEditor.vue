@@ -418,12 +418,11 @@ export default {
         ? "http://evifere.lescigales.org/cocoricover/animals/"
         : "./animals/";
 
-     if( window.location.hostname === "evifere.github.io"){
-        baseUrl = 'https://evifere.github.io/cocoricover/animals/';
-      }
+    if (window.location.hostname === "evifere.github.io") {
+      baseUrl = "https://evifere.github.io/cocoricover/animals/";
+    }
 
     fabric.Image.fromURL(baseUrl + this.logo + ".png", function(oImg) {
-
       oImg.set("left", 125).set("top", 100);
       _self.$canvas.add(oImg);
       _self.$coverImg = oImg;
@@ -685,6 +684,10 @@ export default {
         process.env.NODE_ENV === "production"
           ? "http://evifere.lescigales.org/cocoricover/animals/"
           : "./animals/";
+
+      if (window.location.hostname === "evifere.github.io") {
+        baseUrl = "https://evifere.github.io/cocoricover/animals/";
+      }
 
       this.$coverImg.setSrc(baseUrl + this.logo + ".png", function(oImg) {
         oImg.set("left", 125).set("top", 100);
