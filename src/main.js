@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueMq from 'vue-mq'
 import '../theme/index.css'
 import '../theme/display.css'
 import Element from 'element-ui'
@@ -10,6 +11,16 @@ const CocoricoEditor = () => import(/* webpackChunkName: "cocoricover" */ './com
 const CocoricoQotEditor = () => import(/* webpackChunkName: "cocoricoqot" */ './components/CocoricoQotEditor.vue')
 
 Vue.config.productionTip = false
+
+
+Vue.use(VueMq, {
+  breakpoints: { // default breakpoints - customize this
+    sm: 450,
+    md: 1250,
+    lg: Infinity,
+  },
+  defaultBreakpoint: 'sm' // customize this for SSR
+});
 
 Vue.use(Element,{locale});
 Vue.use(VueRouter);
